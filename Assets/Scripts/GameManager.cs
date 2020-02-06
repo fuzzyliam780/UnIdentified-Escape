@@ -12,6 +12,7 @@ public enum GameStage
 
 public class GameManager : MonoBehaviour
 {
+    public static bool DebugMode = false;
     public GameStage GameFlow;
     public List<GameObject> Spawners;
     public GameObject Disk;
