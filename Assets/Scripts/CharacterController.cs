@@ -27,6 +27,12 @@ public class CharacterController : MonoBehaviour
     private bool grounded;
     private RaycastHit hit;
 
+    void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Update()
     {
         grounded = isGrounded();
