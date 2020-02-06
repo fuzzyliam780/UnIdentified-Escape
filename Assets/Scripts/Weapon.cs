@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public bool debugMode = false;
+
     public GameObject Body;
     public GameObject Stock;
     public GameObject Barrel;
     public GameObject Grip;
     public GameObject Magazine;
     public GameObject Sight;
+    public GameObject Projectile;
 
     int max_rounds_per_mag;
     int currentRoundsInMag;
@@ -34,7 +37,6 @@ public class Weapon : MonoBehaviour
 
     Vector3 magazine_resting_pos;
 
-    // Start is called before the first frame update
     void Start()
     {
         max_rounds_per_mag = Magazine.GetComponent<Magazine>().MaximumRounds;
@@ -97,7 +99,25 @@ public class Weapon : MonoBehaviour
         {
             weaponSound.Play();
             currentRoundsInMag--;
-            UIManager.updateAmmoCounter(currentRoundsInMag, max_rounds_per_mag, currentAmmo);
+
+            //GameObject projectile = Instantiate<GameObject>(Projectile);
+            //projectile.transform.position = Barrel.transform.position;
+            //projectile.transform.eulerAngles = transform.eulerAngles;
+            //Destroy(projectile, 5);
+
+            RaycastHit hit;
+            if (Physics.Raycast(Barrel.transform.position, transform.forward,out hit, Mathf.Infinity, 1 << 9))
+            {
+                if (debugMode)
+                {
+                    Debug.DrawRay(Barrel.transform.position, hit.collider.gameObject.transform.position);
+                }
+
+                hit.collider.gameObject.GetComponent<Enemy>().takeDamage();
+                UIManager.updateScore(1);
+            }
+
+                UIManager.updateAmmoCounter(currentRoundsInMag, max_rounds_per_mag, currentAmmo);
             return true;
         }
         else
