@@ -65,10 +65,12 @@ public class Player : MonoBehaviour
     {
 
         GameObject go = collision.gameObject;
-        go.GetComponent<Enemy>().Attacking();
-        
-        if (go.layer == 9) takeDamage();
-        //go.GetComponent<Enemy>().StopAttacking();
+
+        if (go.layer == 9)
+        {
+            go.GetComponent<Enemy>().Attacking();
+            takeDamage();
+        }
         
         
     }

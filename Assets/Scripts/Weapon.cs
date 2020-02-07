@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     public GameObject Body;
     public GameObject Stock;
     public GameObject Barrel;
+    public GameObject BarrelExt;
     public GameObject Grip;
     public GameObject Magazine;
     public GameObject Sight;
@@ -110,7 +111,7 @@ public class Weapon : MonoBehaviour
             {
                 if (debugMode)
                 {
-                    Debug.DrawRay(Barrel.transform.position, hit.collider.gameObject.transform.position);
+                    Debug.DrawRay(Barrel.transform.position, hit.point,Color.red);
                 }
 
                 hit.collider.gameObject.GetComponent<Enemy>().takeDamage();
