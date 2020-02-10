@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public int EnenmyInRound = 20; //Amount of Enemies that will be spawned during the round
     public static int EnenmiesLeft; //Amount of Enemies that still have to be killed
     public int EnenmiesLeftToSpawn; //Amount of Enemies that still have to be spawned
-    public int framesBetweenEnemies = 90; //Number of frames in between enemy spawns
+    public int framesBetweenEnemies = 240; //Number of frames in between enemy spawns
     public int EnemySpawnFrames; //Number of frames before the next enemy can spawn
     public int EnemiesInFirstSpawn = 5; //Number of enemies in the first spawn
     static List<GameObject> enemies;
@@ -36,8 +36,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameFlow = GameStage.diskRaise;
-        GracePeriodFrames = GracePeriodLength * 30;
+        GracePeriodFrames = GracePeriodLength * 90;
         EnenmiesLeft = EnenmyInRound;
+        EnenmiesLeftToSpawn = EnenmyInRound;
         enemies = new List<GameObject>(EnenmyLimit);
     }
 
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
                     UIManager.roundInfoPanel.SetActive(true);
                 }
                 GracePeriodFrames--;
-                if (GracePeriodFrames % 30 == 0 && GracePeriodFrames > 0)
+                if (GracePeriodFrames % 90 == 0 && GracePeriodFrames > 0)
                 {
                     GracePeriodLength--;
                     UIManager.updateRoundCountdown(GracePeriodLength);

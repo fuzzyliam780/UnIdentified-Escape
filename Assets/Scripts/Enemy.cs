@@ -58,8 +58,9 @@ public class Enemy : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, 1 << 10);
         transform.position = new Vector3(transform.position.x,hit.point.y, transform.position.z);
-        //transform.eulerAngles = Vector3.RotateTowards(transform.position, Player.transform.position, 360, 50 * Time.deltaTime);
-        transform.LookAt(Player.transform.position);
+
+
+        transform.LookAt(Player.transform.position,transform.up);
         transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
 
 
@@ -67,9 +68,9 @@ public class Enemy : MonoBehaviour
         isWalking = true;
     }
 
-    public void takeDamage()
+    public void takeDamage(int damageToTake = 1)
     {
-        Health--;
+        Health -= damageToTake;
         if (GameManager.DebugMode)
         {
             Debug.Log(transform.name + ": Hit");

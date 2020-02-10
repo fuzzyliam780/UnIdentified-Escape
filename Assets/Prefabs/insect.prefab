@@ -1444,10 +1444,12 @@ MonoBehaviour:
   hurt: {fileID: 2100000, guid: fd3352693cc3a9047bd56903a29eb51f, type: 2}
   MR: {fileID: 8296278484296898753}
   hurtDuration: 5
+  attackDuration: 20
+  attackFrames: 0
   hurtFrames: 0
   isWalking: 0
   Health: 10
-  Speed: 2.5
+  Speed: 1
 --- !u!136 &362775830972230911
 CapsuleCollider:
   m_ObjectHideFlags: 0
