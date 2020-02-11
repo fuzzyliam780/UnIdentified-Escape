@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static GameObject roundInfoPanel;
     public static GameObject roundResultPanel;
+    public static GameObject crosshair;
     public static Text ammoCounter;
     public static Text roundInfo;
     public static Text score;
@@ -22,10 +23,12 @@ public class UIManager : MonoBehaviour
         score = GameObject.Find("Score Text").GetComponent<Text>();
         health = GameObject.Find("Health Text").GetComponent<Text>();
         roundResult = GameObject.Find("Round Result Text").GetComponent<Text>();
+        crosshair = GameObject.Find("Crosshair");
         roundInfoPanel = GameObject.Find("Round Info");
         roundInfoPanel.SetActive(false);
         roundResultPanel = GameObject.Find("Round Result");
         roundResultPanel.SetActive(false);
+
     }
 
     public static void updateAmmoCounter(int currentAmmoInMag,int maxAmmoForMag,int currentAmmo)
@@ -64,5 +67,10 @@ public class UIManager : MonoBehaviour
     {
         roundResultPanel.SetActive(true);
         roundResult.text = result;
+    }
+
+    public static void toggleCrosshair()
+    {
+        crosshair.SetActive(!crosshair.activeInHierarchy);
     }
 }

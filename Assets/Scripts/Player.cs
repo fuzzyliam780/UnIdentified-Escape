@@ -63,7 +63,15 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         GameObject go = collision.gameObject;
-        if (go.layer == 9) takeDamage();
+
+        if (go.layer == 9)
+        {
+            go.GetComponent<Enemy>().Attacking();
+            takeDamage();
+        }
+        
+        
     }
 }

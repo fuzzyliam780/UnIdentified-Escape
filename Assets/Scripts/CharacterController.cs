@@ -5,7 +5,6 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public bool debugMode = false;
-    public bool MouseControlsView = true;
     public GameObject topHalf;
     public GameObject weapon;
 
@@ -26,6 +25,11 @@ public class CharacterController : MonoBehaviour
 
     private bool grounded;
     private RaycastHit hit;
+
+    void Start()
+    {
+        toggleMouseLock();
+    }
 
     void Update()
     {
@@ -83,7 +87,8 @@ public class CharacterController : MonoBehaviour
        
 
 
-        if (MouseControlsView){                             //
+        if (!Cursor.visible) //Controls Mouse Movement
+        {
 
             Yaw += Speed_Yaw * Input.GetAxis("Mouse X");
             Pitch -= Speed_Pitch * Input.GetAxis("Mouse Y");
@@ -129,5 +134,19 @@ public class CharacterController : MonoBehaviour
             return false;
         }
         
+    }
+
+    public static void toggleMouseLock()
+    {
+        if (!Cursor.visible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }
