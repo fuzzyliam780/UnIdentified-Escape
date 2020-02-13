@@ -14,8 +14,7 @@ public class CharacterController : MonoBehaviour
     public int backSpeed = 5;
     public int turnSpeed = 20;
     public int JumpHeight = 200;
-    public int JumpingDuration = 60;
-    public int JumpingFrames = 0;
+    public int FallSpeed = 10;
 
     public float Yaw;
     public float Pitch;
@@ -67,22 +66,18 @@ public class CharacterController : MonoBehaviour
         }
 
         v3.y = 0f;                                          //Prevent Random Vertical Movement
+        rb.velocity = v3 * walkSpeed * acceleration;
+
 
         if (Input.GetKeyDown(KeyCode.Space) & grounded)     //If Space is down and we are gounded, jump up
         {
-            v3 += transform.up * JumpHeight;
-            JumpingFrames = JumpingDuration;
+            rb.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
         }
-        else if (!grounded && JumpingFrames == 0)           //if we aren't grounded and we aren't going up then go down
+        if(!grounded)
         {
-            v3 += -transform.up * 2f;
+            rb.AddForce(Vector3.down * FallSpeed);
         }
-        else if (JumpingFrames != 0)                        //JumpingFrames controls how long we are going up
-        {
-            JumpingFrames--;
-        }
-
-        rb.velocity = v3 * walkSpeed * acceleration;
+        
 
        
 
@@ -121,7 +116,7 @@ public class CharacterController : MonoBehaviour
         {
             if (debugMode)
             {
-                Debug.DrawRay(transform.position,Vector3.down * (0.5f * 2),Color.red);
+                Debug.DrawRay(transform.position, Vector3.down * (0.5f * 2), Color.red);
             }
             return true;
         }
@@ -133,7 +128,7 @@ public class CharacterController : MonoBehaviour
             }
             return false;
         }
-        
+
     }
 
     public static void toggleMouseLock()
