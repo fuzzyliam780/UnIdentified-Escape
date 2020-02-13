@@ -81,6 +81,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public static void toggleMouseLock()
+    {
+        if (!Cursor.visible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 
     public static void updateAmmoCounter(int currentAmmoInMag,int maxAmmoForMag,int currentAmmo)
     {

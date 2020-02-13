@@ -74,6 +74,8 @@ namespace MainController
         /// Initializes the FpsController on start.
         private void Start()
         {
+            UIManager.toggleMouseLock();
+
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             _collider = GetComponent<CapsuleCollider>();
@@ -158,11 +160,14 @@ namespace MainController
             var clampedY = RestrictVerticalRotation(rotationY);
             _rotationY.Current = clampedY;
             var worldUp = arms.InverseTransformDirection(Vector3.up);
-            var rotation = arms.rotation *
-                           Quaternion.AngleAxis(rotationX, worldUp) *
-                           Quaternion.AngleAxis(clampedY, Vector3.left);
-            transform.eulerAngles = new Vector3(0f, rotation.eulerAngles.y, 0f);
-            arms.rotation = rotation;
+            if (!Cursor.visible)
+            {
+                var rotation = arms.rotation *
+                               Quaternion.AngleAxis(rotationX, worldUp) *
+                               Quaternion.AngleAxis(clampedY, Vector3.left);
+                transform.eulerAngles = new Vector3(0f, rotation.eulerAngles.y, 0f);
+                arms.rotation = rotation;
+            }
         }
 
         /// Returns the target rotation of the camera around the y axis with no smoothing.
