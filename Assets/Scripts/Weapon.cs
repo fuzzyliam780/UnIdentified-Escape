@@ -18,6 +18,10 @@ public class Weapon : MonoBehaviour
     public GameObject Sight;
     public GameObject Projectile;
 
+    //Inspector Attachment Indexes
+    private int index_barrel = 0;
+    private int index_grip = 0;
+
     [Header("Weapon Parts")]
     public Barrels AttachedBarrel;
     public Grips AttachedGrip;
@@ -65,8 +69,6 @@ public class Weapon : MonoBehaviour
 
         currentRoundsInMag = max_rounds_per_mag;
         currentAmmo = maxAmmo;
-
-
     }
 
     // Update is called once per frame
@@ -88,6 +90,25 @@ public class Weapon : MonoBehaviour
         {
             inspecting = !inspecting;
             Inspect();
+            UIManager.toggleInspectUI();
+            switch (AttachedBarrel)
+            {
+                case Barrels.LongBarrel:
+                    UIManager.updateBarrekCyclerPOS(Barrel.transform.position);
+                    break;
+                case Barrels.ShortBarrel:
+                    UIManager.updateBarrekCyclerPOS(BarrelAlt1.transform.position);
+                    break;
+            }
+            switch (AttachedGrip)
+            {
+                case Grips.RoundGrip:
+                    UIManager.updateGripCyclerPOS(Grip.transform.position);
+                    break;
+                case Grips.StraightGrip:
+                    UIManager.updateGripCyclerPOS(GripAlt1.transform.position);
+                    break;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R) && !inspecting)
@@ -117,8 +138,7 @@ public class Weapon : MonoBehaviour
 
     void Inspect()
     {
-        UIManager.toggleCrosshair();
-        CharacterController.toggleMouseLock();
+        UIManager.toggleGameplayUI();
 
         if (inspecting)
         {
@@ -161,7 +181,7 @@ public class Weapon : MonoBehaviour
 
                 if (hit.collider.gameObject.layer == 9)
                 {
-                    hit.collider.gameObject.GetComponent<Enemy>().takeDamage();
+                    hit.collider.gameObject.GetComponent<Enemy>().takeDamage(1 + SkillManager.damageBoost);
                     UIManager.updateScore(1);
                 }
             }
@@ -233,6 +253,11 @@ public class Weapon : MonoBehaviour
 
     private void OnValidate()
     {
+        updateAttachments();
+    }
+
+    public void updateAttachments()
+    {
         Vector3 barrel_ext_position = Vector3.zero;
         if (AttachedBarrel == Barrels.LongBarrel)
         {
@@ -240,6 +265,10 @@ public class Weapon : MonoBehaviour
             weaponSound = Barrel.GetComponent<Barrel>().weaponSound;
             Barrel.SetActive(true);
             BarrelAlt1.SetActive(false);
+            if (UIManager.BarrelCycler.activeInHierarchy)
+            {
+                UIManager.updateBarrekCyclerPOS(Barrel.transform.position);
+            }
         }
         else if (AttachedBarrel == Barrels.ShortBarrel)
         {
@@ -247,6 +276,10 @@ public class Weapon : MonoBehaviour
             weaponSound = BarrelAlt1.GetComponent<Barrel>().weaponSound;
             BarrelAlt1.SetActive(true);
             Barrel.SetActive(false);
+            if (UIManager.BarrelCycler.activeInHierarchy)
+            {
+                UIManager.updateBarrekCyclerPOS(BarrelAlt1.transform.position);
+            }
         }
 
         if (BarrelExt.activeInHierarchy)
@@ -258,14 +291,69 @@ public class Weapon : MonoBehaviour
         {
             Grip.SetActive(true);
             GripAlt1.SetActive(false);
+            if (UIManager.GripCycler.activeInHierarchy)
+            {
+                UIManager.updateGripCyclerPOS(Grip.transform.position);
+            }
         }
         else if (AttachedGrip == Grips.StraightGrip)
         {
             GripAlt1.SetActive(true);
             Grip.SetActive(false);
+            if (UIManager.GripCycler.activeInHierarchy)
+            {
+                UIManager.updateGripCyclerPOS(GripAlt1.transform.position);
+            }
+        }
+    }
+    public void CycleBarrelsForward()
+    {
+        if (index_barrel == 1)//If Max, cycle to beginning
+        {
+            index_barrel = 0;
+        }
+        else
+        {
+            index_barrel++;
+        }
+
+        switch (index_barrel)
+        {
+            case 0:
+                AttachedBarrel = Barrels.LongBarrel;
+                updateAttachments();
+                break;
+            case 1:
+                AttachedBarrel = Barrels.ShortBarrel;
+                updateAttachments();
+                break;
+        }
+    }
+    public void CycleGripsForward()
+    {
+        if (index_grip == 1)//If Max, cycle to beginning
+        {
+            index_grip = 0;
+        }
+        else
+        {
+            index_grip++;
+        }
+
+        switch (index_grip)
+        {
+            case 0:
+                AttachedGrip = Grips.RoundGrip;
+                updateAttachments();
+                break;
+            case 1:
+                AttachedGrip = Grips.StraightGrip;
+                updateAttachments();
+                break;
         }
     }
 }
+
 
 public enum Barrels
 {

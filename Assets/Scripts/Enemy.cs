@@ -79,6 +79,7 @@ public class Enemy : MonoBehaviour
         {
             GameManager.RemoveEnemy(transform.gameObject);
             UIManager.updateScore(5);
+            SkillManager.grantXP(1);
         }
         if (isHurt) return;
         MR.material = hurt;

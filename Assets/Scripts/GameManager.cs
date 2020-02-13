@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameStage.gracePeriod:
-                if (!UIManager.roundInfoPanel.activeSelf)
+                if (!UIManager.roundInfoPanel.activeInHierarchy && (!UIManager.inspecting && !UIManager.SkillMenuActive))
                 {
                     UIManager.roundInfoPanel.SetActive(true);
                 }
@@ -64,7 +64,10 @@ public class GameManager : MonoBehaviour
                 if (GracePeriodFrames % 90 == 0 && GracePeriodFrames > 0)
                 {
                     GracePeriodLength--;
-                    UIManager.updateRoundCountdown(GracePeriodLength);
+                    if (UIManager.roundInfoPanel.activeInHierarchy && (!UIManager.inspecting && !UIManager.SkillMenuActive))
+                    {
+                        UIManager.updateRoundCountdown(GracePeriodLength);
+                    }
                 }
                 else if (GracePeriodFrames == 0)
                 {
