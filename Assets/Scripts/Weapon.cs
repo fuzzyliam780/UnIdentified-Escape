@@ -6,6 +6,8 @@ public class Weapon : MonoBehaviour
 {
     public bool debugMode = false;
 
+    public Animator ArmsAnimator;
+
     [Header("Attachment GameObjects")]
     public GameObject Body;
     public GameObject Stock;
@@ -39,8 +41,8 @@ public class Weapon : MonoBehaviour
     int FirerateFrames;
 
     public int RecoilFrames = 10;
-    int RisingRecoilFrames;
-    int ReturningRecoilFrames;
+    public int RisingRecoilFrames;
+    public int ReturningRecoilFrames;
 
     bool reloading = false;
     public int ReloadFrames = 30;
@@ -84,7 +86,22 @@ public class Weapon : MonoBehaviour
         {
             ReturningRecoilFrames--;
             transform.Rotate(new Vector3(0.5f, 0, 0));
+            if (ReturningRecoilFrames == 0)
+            {
+                ArmsAnimator.SetBool("firing", false);
+            }
         }
+
+        if (ArmsAnimator.GetBool("reloading") && !ArmsAnimator.GetCurrentAnimatorStateInfo(0).IsName("reload"))
+        {
+            ArmsAnimator.SetBool("reloading", false);
+        }
+
+        if (ArmsAnimator.GetBool("firing") && !ArmsAnimator.GetCurrentAnimatorStateInfo(0).IsName("fire"))
+        {
+            ArmsAnimator.SetBool("firing", false);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.V))
         {
@@ -134,6 +151,13 @@ public class Weapon : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (ArmsAnimator.GetCurrentAnimatorStateInfo(0).IsName("reload"))
+            {
+                ArmsAnimator.SetBool("firing", false);
+            }
+        }
     }
 
     void Inspect()
@@ -156,9 +180,10 @@ public class Weapon : MonoBehaviour
     {
         if (inspecting) return false;
 
-        if (currentRoundsInMag != 0f)
+        if (currentRoundsInMag != 0f && !ArmsAnimator.GetBool("firing"))
         {
             weaponSound.Play();
+            ArmsAnimator.SetBool("firing", true);
             currentRoundsInMag--;
 
             RaycastHit hit;
@@ -200,22 +225,25 @@ public class Weapon : MonoBehaviour
 
     void Reload()
     {
+
+
         if (reloading)
         {
             if (Reload_LoweringFrames != 0)
             {
                 Reload_LoweringFrames--;
-                Magazine.transform.position = new Vector3(Magazine.transform.position.x, Magazine.transform.position.y - 0.03f, Magazine.transform.position.z);
+                //Magazine.transform.position = new Vector3(Magazine.transform.position.x, Magazine.transform.position.y - 0.03f, Magazine.transform.position.z);
             }
             else if (Reload_RisingFrames != 0)
             {
                 Reload_RisingFrames--;
-                Magazine.transform.position =  new Vector3(Magazine.transform.position.x, Magazine.transform.position.y + 0.03f, Magazine.transform.position.z);
-                if(Reload_RisingFrames == 0)
+                //Magazine.transform.position = new Vector3(Magazine.transform.position.x, Magazine.transform.position.y + 0.03f, Magazine.transform.position.z);
+                if (Reload_RisingFrames == 0)
                 {
                     if (currentAmmo >= max_rounds_per_mag)
                     {
                         reloading = false;
+                        ArmsAnimator.SetBool("reloading", false);
                         currentAmmo -= max_rounds_per_mag - currentRoundsInMag;
                         currentRoundsInMag = max_rounds_per_mag;
                         UIManager.updateAmmoCounter(currentRoundsInMag, max_rounds_per_mag, currentAmmo);
@@ -242,11 +270,26 @@ public class Weapon : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                reloading = false;
+            }
         }
         else
         {
-            Reload_LoweringFrames = ReloadFrames / 2;
-            Reload_RisingFrames = ReloadFrames / 2;
+            if (!ArmsAnimator.GetBool("reloading"))
+            {
+                ArmsAnimator.SetBool("reloading", true);
+                Reload_LoweringFrames = ReloadFrames / 2;
+                Reload_RisingFrames = ReloadFrames / 2;
+            }
+            else
+            {
+                ArmsAnimator.SetBool("reloading", false);
+                currentAmmo -= max_rounds_per_mag - currentRoundsInMag;
+                currentRoundsInMag = max_rounds_per_mag;
+                UIManager.updateAmmoCounter(currentRoundsInMag, max_rounds_per_mag, currentAmmo);
+            }
         }
         
     }
