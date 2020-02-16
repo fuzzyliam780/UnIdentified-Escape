@@ -34,6 +34,8 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         grounded = isGrounded();
+
+
         if (debugMode)
         {
             Debug.Log("Grounded: " + grounded);
