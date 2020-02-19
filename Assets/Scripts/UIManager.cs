@@ -101,9 +101,16 @@ public class UIManager : MonoBehaviour
         ammoCounter.text = "" + currentAmmoInMag + "/" + maxAmmoForMag + "\n" + currentAmmo;
     }
 
-    public static void updateRoundCountdown(int currnetTime)
+    public static void updateRoundCountdown(float currnetTime)
     {
-        roundInfo.text = "" + currnetTime;
+        if (currnetTime >= 10f)
+        {
+            roundInfo.text = currnetTime.ToString("00");
+        }
+        else
+        {
+            roundInfo.text = currnetTime.ToString("0.0");
+        }
     }
 
     public static void updateRoundEnemies(int remainingEnemies)
@@ -162,6 +169,7 @@ public class UIManager : MonoBehaviour
     public static void toggleInspectUI()
     {
         inspecting = !inspecting;
+        toggleGameplayUI();
         BarrelCycler.SetActive(!BarrelCycler.activeInHierarchy);
         GripCycler.SetActive(!GripCycler.activeInHierarchy);
     }

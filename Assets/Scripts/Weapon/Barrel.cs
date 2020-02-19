@@ -7,15 +7,8 @@ public class Barrel : MonoBehaviour
     public Vector3 Barrel_Ext_Pos;
     public AudioSource weaponSound;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int Damage;
+    public int WeaponRange;
+    public float AccuracyModifier;
+    public float MoveSpeedPenalty;
 }

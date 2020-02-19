@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
         Health -= damageToTake;
         if (GameManager.DebugMode)
         {
-            Debug.Log(transform.name + ": Hit");
+            Debug.Log(transform.name + " Took " + damageToTake + " damage, Remaing Health: " + Health);
         }
         if (Health <= 0)
         {

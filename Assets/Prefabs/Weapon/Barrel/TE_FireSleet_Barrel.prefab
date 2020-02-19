@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 812969418857375099}
   - component: {fileID: 6373919528261523842}
   - component: {fileID: 2673439924554602784}
+  - component: {fileID: 4735602697019057604}
   m_Layer: 0
   m_Name: TE_FireSleet_Barrel
   m_TagString: Untagged
@@ -95,3 +96,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3228074434751576589, guid: f7b78bff8568ff14fbdec5e9174cd73a, type: 3}
+--- !u!114 &4735602697019057604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632057799552413022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6278be19b1e36da4194d5d4741b11276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Barrel_Ext_Pos: {x: 0.033, y: -0.1549, z: 1.1403}
+  weaponSound: {fileID: 0}
+  Damage: 1
+  WeaponRange: 150
+  AccuracyModifier: 0.9
+  MoveSpeedModifier: 0.2

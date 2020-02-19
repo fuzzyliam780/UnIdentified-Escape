@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject Player;
     public GameObject Enemy;
 
-    public int GracePeriodLength = 30;
-    int GracePeriodFrames;
+    public float GracePeriodLength = 30f;
+    float GracePeriodTime;
 
     bool firstWave = false;
     public int EnenmyLimit = 10; //Amount of Enemies that can be spawned in at a time
@@ -36,10 +36,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameFlow = GameStage.diskRaise;
-        GracePeriodFrames = GracePeriodLength * 90;
         EnenmiesLeft = EnenmyInRound;
         EnenmiesLeftToSpawn = EnenmyInRound;
         enemies = new List<GameObject>(EnenmyLimit);
+        GracePeriodTime = GracePeriodLength;
     }
 
     // Update is called once per frame
@@ -60,16 +60,10 @@ public class GameManager : MonoBehaviour
                 {
                     UIManager.roundInfoPanel.SetActive(true);
                 }
-                GracePeriodFrames--;
-                if (GracePeriodFrames % 90 == 0 && GracePeriodFrames > 0)
-                {
-                    GracePeriodLength--;
-                    if (UIManager.roundInfoPanel.activeInHierarchy && (!UIManager.inspecting && !UIManager.SkillMenuActive))
-                    {
-                        UIManager.updateRoundCountdown(GracePeriodLength);
-                    }
-                }
-                else if (GracePeriodFrames == 0)
+                GracePeriodTime -= Time.deltaTime;
+                UIManager.updateRoundCountdown(GracePeriodTime);
+
+                if (GracePeriodTime <= 0f)
                 {
                     UIManager.updateRoundEnemies(EnenmiesLeft);
                     firstWave = true;
