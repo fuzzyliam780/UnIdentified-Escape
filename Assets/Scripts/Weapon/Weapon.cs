@@ -79,6 +79,7 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        updateAttachments();
         CalculateStats();
 
         //RisingRecoilFrames = RecoilFrames / 2;
