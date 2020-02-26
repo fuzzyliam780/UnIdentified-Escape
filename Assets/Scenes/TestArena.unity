@@ -11798,12 +11798,12 @@ ParentConstraint:
   m_GameObject: {fileID: 4062034681378801162}
   m_Enabled: 1
   m_Weight: 1
-  m_TranslationAtRest: {x: -0.018171936, y: -0.14002334, z: 0.17295817}
-  m_RotationAtRest: {x: -89.98, y: -43.334667, z: 44.433327}
+  m_TranslationAtRest: {x: 0.0022, y: -0.1227, z: 0.1374}
+  m_RotationAtRest: {x: -89.93745, y: 0, z: -0.0010085101}
   m_TranslationOffsets:
-  - {x: 0, y: 0, z: 0}
+  - {x: -0.07797766, y: 0.087830976, z: -0.23482704}
   m_RotationOffsets:
-  - {x: 0, y: 0, z: 0}
+  - {x: -27.324953, y: -72.272514, z: -154.70738}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
@@ -11811,7 +11811,7 @@ ParentConstraint:
   m_AffectRotationY: 1
   m_AffectRotationZ: 1
   m_IsContraintActive: 0
-  m_IsLocked: 0
+  m_IsLocked: 1
   m_Sources:
   - sourceTransform: {fileID: 5676459491544317727}
     weight: 1
