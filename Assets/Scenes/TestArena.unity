@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.46613818, g: 0.46583682, b: 0.46193033, a: 1}
+  m_IndirectSpecularColor: {r: 0.4660946, g: 0.4657923, b: 0.46188927, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10915,8 +10915,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7434264934314396219}
-  m_LocalRotation: {x: 0.09701079, y: 0.8680833, z: 0.40373197, w: 0.27206764}
-  m_LocalPosition: {x: -0.0592, y: 0.1052, z: -0.1617}
+  m_LocalRotation: {x: 0.09909734, y: 0.86865973, z: 0.40286052, w: 0.2707647}
+  m_LocalPosition: {x: 0.0011557341, y: 0.056019682, z: -0.016404392}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6195633190935048360}
@@ -12924,6 +12924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 404900595631847680}
+  - component: {fileID: 7434264934314396220}
   m_Layer: 0
   m_Name: L_arm
   m_TagString: Untagged
@@ -12931,6 +12932,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1773428102 &7434264934314396220
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7434264934314396219}
+  m_Enabled: 0
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0.009, y: 0.058, z: -0.036}
+  m_RotationAtRest: {x: -40.403023, y: 133.68398, z: 30.641031}
+  m_TranslationOffsets:
+  - {x: -0.2962525, y: 0.1416219, z: -0.68713653}
+  - {x: -0.28295442, y: 0.18727362, z: -0.6817949}
+  m_RotationOffsets:
+  - {x: -40.377598, y: 133.87138, z: 30.657919}
+  - {x: -75.14162, y: 148.37222, z: 4.0317206}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 5728074950179202278}
+    weight: 1
+  - sourceTransform: {fileID: 1235584574}
+    weight: 0
 --- !u!4 &7478219609064184912
 Transform:
   m_ObjectHideFlags: 0
