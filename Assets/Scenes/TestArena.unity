@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.46613806, g: 0.4658367, b: 0.46193027, a: 1}
+  m_IndirectSpecularColor: {r: 0.4660946, g: 0.4657923, b: 0.46188927, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1151,6 +1151,12 @@ Transform:
   m_Father: {fileID: 1322083073}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &296625439 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7712204035020374358, guid: 604d3f2479716a24e8fb7cc946137a8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 969928964}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &350322671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,6 +1707,164 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 513445164}
   m_CullTransparentMesh: 0
+--- !u!1 &530510919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530510920}
+  - component: {fileID: 530510921}
+  m_Layer: 8
+  m_Name: Weapon Sound Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &530510920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530510919}
+  m_LocalRotation: {x: -0.70712996, y: -0.012049608, z: -0.013789093, w: -0.7068464}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7.870366, y: 7.8703713, z: 7.870368}
+  m_Children: []
+  m_Father: {fileID: 4354446001645361124}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &530510921
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530510919}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e963bcf52308bb949af5f4c7b4c1cd33, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &558819967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558819968}
+  m_Layer: 8
+  m_Name: TE_Mauler_BarrelAlt1 (Filler)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &558819968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558819967}
+  m_LocalRotation: {x: -0.000000013504174, y: -0.000000057741985, z: 0.000000044703473,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5728074950179202278}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &617752994
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,6 +2688,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e50cce9f17c7e488ff09ae827fdc2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &842524178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842524179}
+  m_Layer: 8
+  m_Name: TE_Mauler_GripAlt1 (Filler)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &842524179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842524178}
+  m_LocalRotation: {x: -0.000000013504174, y: -0.000000057741985, z: 0.000000044703473,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5728074950179202278}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &850235554
 GameObject:
   m_ObjectHideFlags: 0
@@ -2903,11 +3098,22 @@ MonoBehaviour:
   MaxHealth: 30
   Health: 30
   HealthRegenCooldown: 300
-  HealthRegenFrames: 0
-  CooldownBetweenRegen: 30
-  RegenFrames: 0
-  DamageStutter: 30
-  DamageFrames: 0
+  HealthRegenInterval: 0.75
+  DamageInterval: 0.5
+  TimeToStartHealing: 0
+  TimeToNextHeal: 0
+  TimeToNextDamage: 0
+  isHealing: 0
+  possibleWeapons:
+  - {fileID: 1235584573}
+  - {fileID: 4198570717671967323}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  slot1: {fileID: 1235584573}
+  slot2: {fileID: 4198570717671967323}
+  SwitchInterval: 0.5
+  TimetoSwitch: 0
 --- !u!114 &912535478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3088,7 +3294,7 @@ PrefabInstance:
     - target: {fileID: 7712204035020374359, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
       propertyPath: m_Name
-      value: Muzzle Flash
+      value: Mauler Muzzle Flash
       objectReference: {fileID: 0}
     - target: {fileID: 7712204035020374360, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
@@ -3793,7 +3999,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197326214}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.97404414}
+  m_LocalPosition: {x: 0, y: 0, z: -0.8824684}
   m_LocalScale: {x: 0.04581658, y: 0.07518221, z: 0.94681}
   m_Children:
   - {fileID: 2093042318}
@@ -3802,7 +4008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 668.0423, y: -48.368042}
+  m_AnchoredPosition: {x: 713.7875, y: -203.27383}
   m_SizeDelta: {x: 723, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1197326216
@@ -3884,7 +4090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1235584574
 Transform:
   m_ObjectHideFlags: 0
@@ -4083,7 +4289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1322083070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4389,7 +4595,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468277147}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.19714355}
+  m_LocalPosition: {x: 0, y: 0, z: -0.31246567}
   m_LocalScale: {x: 0.04581658, y: 0.07518221, z: 0.94681}
   m_Children:
   - {fileID: 850235555}
@@ -4398,7 +4604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 462.3043, y: 156.249}
+  m_AnchoredPosition: {x: 514.9954, y: 125.270935}
   m_SizeDelta: {x: 723, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1468277149
@@ -6263,7 +6469,7 @@ Transform:
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children: []
   m_Father: {fileID: 5728074950179202278}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &404900595631847680
 Transform:
@@ -6376,7 +6582,7 @@ GameObject:
   - component: {fileID: 1299735190766473515}
   - component: {fileID: 1305118358986875905}
   - component: {fileID: 735564799612020216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6396,11 +6602,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Barrel_Ext_Pos: {x: 0, y: 0, z: 0}
-  weaponSound: {fileID: 0}
-  Damage: 0
-  WeaponRange: 0
-  AccuracyModifier: 0
-  MoveSpeedPenalty: 0
+  weaponSound: {fileID: 530510921}
+  Damage: 0.5
+  WeaponRange: 50
+  AccuracyModifier: 0.25
+  MoveSpeedPenalty: 0.05
 --- !u!1 &824714661266314857
 GameObject:
   m_ObjectHideFlags: 0
@@ -6444,7 +6650,7 @@ Transform:
   m_LocalScale: {x: 0.08, y: 0.07999999, z: 0.07999999}
   m_Children: []
   m_Father: {fileID: 5728074950179202278}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1204437985829649031
 GameObject:
@@ -6510,7 +6716,7 @@ MeshCollider:
   m_GameObject: {fileID: 735564799612020215}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 30
@@ -7078,7 +7284,7 @@ GameObject:
   - component: {fileID: 3119495748910704212}
   - component: {fileID: 4272502953535922596}
   - component: {fileID: 3708286409937506953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7097,9 +7303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91117ec5e15028e449f30921b2d3d5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AccuracyModifier: 0
-  RecoilReductionModifier: 0
-  MoveSpeedPenalty: 0
+  AccuracyModifier: 0.1
+  RecoilReductionModifier: 0.05
+  MoveSpeedPenalty: 0.05
 --- !u!1 &3741634645248222537
 GameObject:
   m_ObjectHideFlags: 0
@@ -7175,7 +7381,7 @@ GameObject:
   - component: {fileID: 7878725367320506848}
   - component: {fileID: 4062034681378801163}
   - component: {fileID: 4062034681378801164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7221,10 +7427,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmmoType: 0
-  Damage: 0
-  MagazineCapacity: 0
-  ReloadSpeed: 0
-  MoveSpeedPenalty: 0
+  Damage: 0.5
+  MagazineCapacity: 30
+  ReloadSpeed: 1.6
+  MoveSpeedPenalty: 0.05
 --- !u!33 &4096031305440283278
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7258,7 +7464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5728074950179202278}
   - component: {fileID: 4198570717671967324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mauler_Modular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7277,15 +7483,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad50b6a8822c89c43856f922640dc550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 0
+  debugMode: 1
   WeaponAnimator: {fileID: 8609641733352892857}
   Body: {fileID: 7253729145111125562}
   Stock: {fileID: 5622120909047006989}
   Barrel: {fileID: 735564799612020215}
-  BarrelAlt1: {fileID: 0}
+  BarrelAlt1: {fileID: 558819967}
   BarrelExt: {fileID: 8347520464821420715}
   Grip: {fileID: 3708286409937506952}
-  GripAlt1: {fileID: 0}
+  GripAlt1: {fileID: 842524178}
   Magazine: {fileID: 4062034681378801162}
   Sight: {fileID: 8400859209403969864}
   Projectile: {fileID: 7976767206694132430, guid: d8d4d3253c05d43488d12bbb59df5727,
@@ -7305,17 +7511,17 @@ MonoBehaviour:
     type: 3}
   EnemyImpactEffect: {fileID: 4870109791331871764, guid: 91ddb30803be8cb4a9e0ebce8c92b525,
     type: 3}
-  MuzzleFlash: {fileID: 0}
+  MuzzleFlash: {fileID: 296625439}
   AmmoType: 0
-  Damage: 0
-  WeaponRange: 0
-  SightMagnification: 0
-  MagazineCapacity: 0
-  Accuracy: 0
-  FireRate: 0
-  RecoilReduction: 0
-  MovementSpeed: 0
-  ReloadSpeed: 0
+  Damage: 1
+  WeaponRange: 75
+  SightMagnification: 2
+  MagazineCapacity: 30
+  Accuracy: 0.050000004
+  FireRate: 0.1
+  RecoilReduction: 0.2
+  MovementSpeed: 0.47000003
+  ReloadSpeed: 1.6
 --- !u!4 &4216876554119857158
 Transform:
   m_ObjectHideFlags: 0
@@ -7370,7 +7576,7 @@ MeshCollider:
   m_GameObject: {fileID: 3708286409937506952}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 30
@@ -7384,9 +7590,9 @@ MeshCollider:
   m_GameObject: {fileID: 8400859209403969864}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4728708521828814162, guid: 34bbde0dad43ff84c872b6e33311abc0, type: 3}
 --- !u!1 &4322197806506536179
@@ -7417,6 +7623,7 @@ Transform:
   m_LocalScale: {x: 0.08, y: 0.07999999, z: 0.07999999}
   m_Children:
   - {fileID: 969928965}
+  - {fileID: 530510920}
   m_Father: {fileID: 5728074950179202278}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7515,7 +7722,7 @@ Transform:
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children: []
   m_Father: {fileID: 5728074950179202278}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5008847735951651000
 Transform:
@@ -7525,11 +7732,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8347520464821420715}
   m_LocalRotation: {x: -0.7071068, y: 0.000000061817246, z: 0.000000061817246, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -0.1169, z: 0.343}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 0.07999999, z: 0.07999999}
   m_Children: []
   m_Father: {fileID: 5728074950179202278}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5067394066812785780
 GameObject:
@@ -7748,7 +7955,7 @@ GameObject:
   - component: {fileID: 6213031388629251025}
   - component: {fileID: 7541772347430087230}
   - component: {fileID: 5622120909047006990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7767,8 +7974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be454d7da0f147647ae8cf19651806af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecoilReductionModifier: 0
-  MoveSpeedPenalty: 0
+  RecoilReductionModifier: 0.15
+  MoveSpeedPenalty: 0.075
 --- !u!4 &5676459491544317727
 Transform:
   m_ObjectHideFlags: 0
@@ -7802,8 +8009,10 @@ Transform:
   - {fileID: 8673529314766877982}
   - {fileID: 5976617422334585897}
   - {fileID: 4354446001645361124}
+  - {fileID: 558819968}
   - {fileID: 5008847735951651000}
   - {fileID: 372992892583354523}
+  - {fileID: 842524179}
   - {fileID: 1010045318083933209}
   - {fileID: 4813927060890272603}
   m_Father: {fileID: 6092839725765391080}
@@ -8078,7 +8287,7 @@ MeshCollider:
   m_GameObject: {fileID: 7253729145111125562}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 30
@@ -8293,7 +8502,7 @@ MeshCollider:
   m_GameObject: {fileID: 8347520464821420715}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 30
@@ -8356,7 +8565,7 @@ GameObject:
   - component: {fileID: 8977567644184816358}
   - component: {fileID: 6614751413444061930}
   - component: {fileID: 7253729145111125563}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8375,9 +8584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690f1a34c262bc1458d5d791d53e8d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 0
-  BaseAccuracy: 0
-  MoveSpeedPenalty: 0
+  fireRate: 0.1
+  BaseAccuracy: 0.2
+  MoveSpeedPenalty: 0.225
 --- !u!1 &7282554799291087005
 GameObject:
   m_ObjectHideFlags: 0
@@ -8495,7 +8704,7 @@ MeshCollider:
   m_GameObject: {fileID: 5622120909047006989}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 30
@@ -8604,7 +8813,7 @@ PrefabInstance:
     - target: {fileID: 7712204035020374359, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
       propertyPath: m_Name
-      value: Muzzle Flash
+      value: Fire Sleet Muzzle Flash
       objectReference: {fileID: 0}
     - target: {fileID: 7712204035020374360, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
@@ -8781,7 +8990,7 @@ MeshCollider:
   m_GameObject: {fileID: 4062034681378801162}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 30
@@ -8866,7 +9075,7 @@ GameObject:
   - component: {fileID: 4096031305440283278}
   - component: {fileID: 7774496834393618039}
   - component: {fileID: 7105556944953666183}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Barrel_Attachment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8886,7 +9095,7 @@ GameObject:
   - component: {fileID: 7829805903947072916}
   - component: {fileID: 4316078922286709837}
   - component: {fileID: 8400859209403969865}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TE_Mauler_Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8905,9 +9114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8012f96f6bfd7a41a1cf3c99687b431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Magnification: 0
-  WeaponRange: 0
-  MoveSpeedPenalty: 0
+  Magnification: 2
+  WeaponRange: 25
+  MoveSpeedPenalty: 0.02
 --- !u!95 &8609641733352892857
 Animator:
   serializedVersion: 3
