@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     public int hurtFrames;
     public bool isWalking = false;
 
-    public int Health = 10;
+    public float Health = 10f;
 
     public float Speed = 2.5f;
 
@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
         isWalking = true;
     }
 
-    public void takeDamage(int damageToTake = 1)
+    public void takeDamage(float damageToTake = 1)
     {
         Health -= damageToTake;
         if (GameManager.DebugMode)

@@ -14,7 +14,7 @@ public enum AmmoType
 public class Magazine : MonoBehaviour
 {
     public AmmoType AmmoType;
-    public int Damage;
+    public float Damage;
     public int MagazineCapacity;
     public float ReloadSpeed;
     public float MoveSpeedPenalty;

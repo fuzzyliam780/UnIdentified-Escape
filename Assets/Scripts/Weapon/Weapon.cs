@@ -64,7 +64,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Weapon Stats")]
     [ShowOnly] public AmmoType AmmoType;
-    [ShowOnly] public int Damage;
+    [ShowOnly] public float Damage;
     [ShowOnly] public int WeaponRange;
     [ShowOnly] public int SightMagnification;
     [ShowOnly] public int MagazineCapacity;
@@ -74,6 +74,7 @@ public class Weapon : MonoBehaviour
     [ShowOnly] public float MovementSpeed;
     [ShowOnly] public float ReloadSpeed;
 
+    private bool statsComputed = false;
     private float NextTimeToFire = 0;
     private float TimeToAddAmmo = 0;
 
@@ -91,6 +92,7 @@ public class Weapon : MonoBehaviour
         maxAmmo = MagazineCapacity * 10;
         currentRoundsInMag = MagazineCapacity;
         currentAmmo = maxAmmo;
+        transform.gameObject.SetActive(false);
     }
 
     private void OnValidate()
@@ -102,6 +104,16 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!statsComputed)
+        {
+            updateAttachments();
+            CalculateStats();
+        }
+
+        if (NextTimeToFire > Time.time + 1000f)
+        {
+            NextTimeToFire = 0;
+        }
 
         if (WeaponAnimator.GetBool("firing") && !WeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("fire"))
         {
@@ -116,7 +128,7 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetButton("Fire1") && Time.time >= NextTimeToFire)
         {
-            NextTimeToFire = Time.time + 1f / FireRate;
+            NextTimeToFire = Time.time + FireRate;
             if (currentRoundsInMag != 0)
             {
                 FireWeapon();
@@ -137,6 +149,8 @@ public class Weapon : MonoBehaviour
             WeaponAnimator.SetBool("reloading", false);
         }
     }
+
+
 
     void ChangeMagazineAmmo(int delta = -1)
     {
@@ -227,6 +241,8 @@ public class Weapon : MonoBehaviour
         //Stock
         RecoilReduction += Stock.GetComponent<Stock>().RecoilReductionModifier;
         MovementSpeed += Stock.GetComponent<Stock>().MoveSpeedPenalty;
+
+        statsComputed = true;
     }
 
     void Inspect()
