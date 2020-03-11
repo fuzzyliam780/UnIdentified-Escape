@@ -18,7 +18,6 @@ public class Weapon : MonoBehaviour
     public GameObject GripAlt1;
     public GameObject Magazine;
     public GameObject Sight;
-    public GameObject Projectile;
 
     //Inspector Attachment Indexes
     private int index_barrel = 0;
@@ -38,23 +37,11 @@ public class Weapon : MonoBehaviour
 
     [Header("Fire Rate & Recoil")]
     public int fireRate = 30;
-    int FirerateFrames;
-
-    public int RecoilFrames = 10;
-    public int RisingRecoilFrames;
-    public int ReturningRecoilFrames;
 
     bool reloading = false;
-    public int ReloadFrames = 30;
-    int Reload_LoweringFrames;
-    int Reload_RisingFrames;
 
     [Header("Inspect")]
     private bool inspecting = false;
-    public Vector3 restingPosition = new Vector3(-0.198f, 0.38f, 0.05813932f);
-    public Vector3 restingRotation = new Vector3(0f, 0f, 0f);
-    public Vector3 insepctingRotation = new Vector3 (-16.937f,-43.395f,6.708f);
-    public Vector3 insepctingPosition = new Vector3(-0.588f, 0.553f, 0.471f);
 
     Vector3 magazine_resting_pos;
 

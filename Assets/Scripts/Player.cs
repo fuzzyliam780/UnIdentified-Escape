@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
             case "Mauler_Modular":
                 slot1Index = 2;
                 break;
+            case "Grimbrand_Modular":
+                slot1Index = 3;
+                break;
             default:
                 slot1Index = 0;
                 break;
@@ -54,6 +57,9 @@ public class Player : MonoBehaviour
                 break;
             case "Mauler_Modular":
                 slot2Index = 2;
+                break;
+            case "Grimbrand_Modular":
+                slot2Index = 3;
                 break;
             default:
                 slot2Index = 0;
