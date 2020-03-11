@@ -6169,6 +6169,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1978649328}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1890657662 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7712204035020374358, guid: 604d3f2479716a24e8fb7cc946137a8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1978649328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1908291585
 GameObject:
   m_ObjectHideFlags: 0
@@ -6478,7 +6484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1970260267
 Transform:
   m_ObjectHideFlags: 0
@@ -6515,7 +6521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
-  WeaponAnimator: {fileID: 0}
+  WeaponAnimator: {fileID: 8609641733352892857}
   Body: {fileID: 8296172669123780416}
   Stock: {fileID: 8296172668198599265}
   Barrel: {fileID: 8296172667591475175}
@@ -6528,9 +6534,11 @@ MonoBehaviour:
   AttachedBarrel: 0
   AttachedGrip: 0
   fireRate: 30
-  GroundImpactEffect: {fileID: 0}
-  EnemyImpactEffect: {fileID: 0}
-  MuzzleFlash: {fileID: 0}
+  GroundImpactEffect: {fileID: 3666498065114136792, guid: b2bd69c4757e4db4c8e2442e10611f2e,
+    type: 3}
+  EnemyImpactEffect: {fileID: 4870109791331871764, guid: 91ddb30803be8cb4a9e0ebce8c92b525,
+    type: 3}
+  MuzzleFlash: {fileID: 1890657662}
   AmmoType: 0
   Damage: 0.5
   WeaponRange: 50
@@ -6586,17 +6594,17 @@ PrefabInstance:
     - target: {fileID: 7712204035020374360, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0421
       objectReference: {fileID: 0}
     - target: {fileID: 7712204035020374360, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.2557
       objectReference: {fileID: 0}
     - target: {fileID: 7712204035020374360, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7712204035020374360, guid: 604d3f2479716a24e8fb7cc946137a8e,
         type: 3}
@@ -8113,7 +8121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4198570717671967324
 MonoBehaviour:
   m_ObjectHideFlags: 0
