@@ -35,8 +35,7 @@ public class Weapon : MonoBehaviour
 
     private AudioSource weaponSound;
 
-    [Header("Fire Rate & Recoil")]
-    public int fireRate = 30;
+    [Header("Effects")]
 
     bool reloading = false;
 
@@ -119,6 +118,18 @@ public class Weapon : MonoBehaviour
             if (currentRoundsInMag != 0)
             {
                 FireWeapon();
+                if(WeaponAnimator.GetInteger("Weapon") == 4)
+                {
+                    SBLightsController sblc = GetComponent<SBLightsController>();
+                    if (Magazine.activeInHierarchy)
+                    {
+                        sblc.Fire2Rnd();
+                    }
+                    else
+                    {
+                        sblc.Fire4Rnd();
+                    }
+                }
             }
             else
             {
@@ -129,6 +140,11 @@ public class Weapon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && !WeaponAnimator.GetBool("reloading"))
         {
             Reload();
+            if (WeaponAnimator.GetInteger("Weapon") == 4)
+            {
+                SBLightsController sblc = GetComponent<SBLightsController>();
+                sblc.StartReloadTimers();
+            }
         }
         else if (WeaponAnimator.GetBool("reloading") && Time.time >= TimeToAddAmmo)
         {

@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
             case "Grimbrand_Modular":
                 slot1Index = 3;
                 break;
+            case "ScatterBurst_Modular":
+                slot1Index = 4;
+                break;
             default:
                 slot1Index = 0;
                 break;
@@ -60,6 +63,9 @@ public class Player : MonoBehaviour
                 break;
             case "Grimbrand_Modular":
                 slot2Index = 3;
+                break;
+            case "ScatterBurst_Modular":
+                slot2Index = 4;
                 break;
             default:
                 slot2Index = 0;
