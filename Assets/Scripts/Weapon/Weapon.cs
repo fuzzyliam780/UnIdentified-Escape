@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
 
     public Animator WeaponAnimator;
 
+    public GameObject Empty;
+
     [Header("Attachment GameObjects")]
     public GameObject Body;
     public GameObject Stock;
@@ -59,6 +61,7 @@ public class Weapon : MonoBehaviour
     [ShowOnly] public float RecoilReduction;
     [ShowOnly] public float MovementSpeed;
     [ShowOnly] public float ReloadSpeed;
+    [ShowOnly] public float NumberOfProjectiles;
 
     private bool statsComputed = false;
     private float NextTimeToFire = 0;
@@ -75,7 +78,14 @@ public class Weapon : MonoBehaviour
         //Reload_LoweringFrames = ReloadFrames / 2;
         //Reload_RisingFrames = ReloadFrames / 2;
 
-        maxAmmo = MagazineCapacity * 10;
+        if (debugMode)
+        {
+            maxAmmo = MagazineCapacity * 1000;
+        }
+        else
+        {
+            maxAmmo = MagazineCapacity * 10;
+        }
         currentRoundsInMag = MagazineCapacity;
         currentAmmo = maxAmmo;
         transform.gameObject.SetActive(false);
@@ -118,18 +128,6 @@ public class Weapon : MonoBehaviour
             if (currentRoundsInMag != 0)
             {
                 FireWeapon();
-                if(WeaponAnimator.GetInteger("Weapon") == 4)
-                {
-                    SBLightsController sblc = GetComponent<SBLightsController>();
-                    if (Magazine.activeInHierarchy)
-                    {
-                        sblc.Fire2Rnd();
-                    }
-                    else
-                    {
-                        sblc.Fire4Rnd();
-                    }
-                }
             }
             else
             {
@@ -191,6 +189,7 @@ public class Weapon : MonoBehaviour
         ReloadSpeed = 0;
         RecoilReduction = 0;
         MovementSpeed = 0;
+        NumberOfProjectiles = 0;
 
 
         //Magazine
@@ -198,6 +197,7 @@ public class Weapon : MonoBehaviour
         MagazineCapacity = Magazine.GetComponent<Magazine>().MagazineCapacity;
         MovementSpeed += Magazine.GetComponent<Magazine>().MoveSpeedPenalty;
         ReloadSpeed = Magazine.GetComponent<Magazine>().ReloadSpeed;
+        AmmoType = Magazine.GetComponent<Magazine>().AmmoType;
 
         //Sight
         SightMagnification = Sight.GetComponent<Sight>().Magnification;
@@ -217,14 +217,20 @@ public class Weapon : MonoBehaviour
                 WeaponRange += Barrel.GetComponent<Barrel>().WeaponRange;
                 Accuracy -= Barrel.GetComponent<Barrel>().AccuracyModifier;
                 MovementSpeed += Barrel.GetComponent<Barrel>().MoveSpeedPenalty;
+                FireRate -= Barrel.GetComponent<Barrel>().FireRateModifier;
                 break;
             case Barrels.ShortBarrel:
                 Damage += BarrelAlt1.GetComponent<Barrel>().Damage;
                 WeaponRange += BarrelAlt1.GetComponent<Barrel>().WeaponRange;
                 Accuracy += BarrelAlt1.GetComponent<Barrel>().AccuracyModifier;
                 MovementSpeed += BarrelAlt1.GetComponent<Barrel>().MoveSpeedPenalty;
+                FireRate -= BarrelAlt1.GetComponent<Barrel>().FireRateModifier;
                 break;
         }
+
+        //Barrel Attachment
+        NumberOfProjectiles = BarrelExt.GetComponent<BarrelAttachment>().NumberOfProjectiles;
+        if (NumberOfProjectiles == 0) NumberOfProjectiles = 1;
 
         //Grip
         switch (AttachedGrip)
@@ -282,14 +288,68 @@ public class Weapon : MonoBehaviour
         ChangeMagazineAmmo();
         WeaponAnimator.SetBool("firing", true);
 
-        RaycastHit hit;
+        if (WeaponAnimator.GetInteger("Weapon") == 4)
+        {
+            SBLightsController sblc = GetComponent<SBLightsController>();
+            if (Magazine.activeInHierarchy)
+            {
+                sblc.Fire2Rnd();
+            }
+            else
+            {
+                sblc.Fire4Rnd();
+            }
+            for (int i = 0; i < NumberOfProjectiles; i++)
+            {
+                FireRayCast();
+            }
+        }
+        else
+        {
+            FireRayCast();
+        }
+            
+    }
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, WeaponRange)) //Fire raycast from current weapon position forward until it hits something or reaches the maximum range
+    Vector3 GenerateProjectileAngle()
+    {
+        if (true)
+        {
+            Vector3 Rot;
+            Vector3 forward = Camera.main.transform.forward;
+
+
+            Quaternion qRot = Random.rotation;
+
+            float angle = 10f - (Accuracy * 10f);
+
+            Quaternion qRot2 = Quaternion.RotateTowards(Camera.main.transform.rotation, qRot, angle);
+
+            Rot = qRot2.eulerAngles;
+
+            return Rot;
+        }
+        else
+        {
+            return Camera.main.transform.forward;
+        }
+    }
+
+    void FireRayCast()
+        {
+        RaycastHit hit;
+        GameObject go = Instantiate(Empty); ;
+        go.transform.position = Camera.main.transform.position;
+        go.transform.eulerAngles = GenerateProjectileAngle();
+
+
+
+        if (Physics.Raycast(transform.position, go.transform.forward, out hit, WeaponRange)) //Fire raycast from current weapon position forward until it hits something or reaches the maximum range
         {//if something is hit
             if (debugMode)
             {
                 Debug.Log(hit.transform.name);//Log the name of the hit object
-                Debug.DrawLine(transform.position, hit.point, Color.black,2); //Draw a black line in the SCENE view between the current weapon position and the position of the point the raycast hit that will last for 2 seconds
+                Debug.DrawLine(transform.position, hit.point, Color.red, 2); //Draw a black line in the SCENE view between the current weapon position and the position of the point the raycast hit that will last for 2 seconds
             }
 
             Enemy tempEnemy = hit.transform.GetComponent<Enemy>();
@@ -298,7 +358,7 @@ public class Weapon : MonoBehaviour
             if (tempEnemy != null)// If an enemy is hit
             {
                 ImpactGO = Instantiate(EnemyImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                tempEnemy.takeDamage(Damage + SkillManager.damageBoost);
+                tempEnemy.takeDamage((Damage + SkillManager.damageBoost)/NumberOfProjectiles);
                 UIManager.updateScore(1);
             }
             else // If something other than an enemy if hit
@@ -310,9 +370,10 @@ public class Weapon : MonoBehaviour
         }
         else if (debugMode) //if nothing is hit
         {
-            Debug.DrawLine(transform.position, transform.position + transform.forward * WeaponRange, Color.red, 2);
+            Debug.DrawLine(transform.position, transform.position + transform.forward * WeaponRange, Color.black, 2);
         }
-        
+        Destroy(go);
+
     }
 
     void Reload()

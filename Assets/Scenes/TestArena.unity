@@ -2667,7 +2667,7 @@ MonoBehaviour:
   Disk: {fileID: 386347359}
   Player: {fileID: 912535472}
   Enemy: {fileID: 7190764735746719203, guid: 5c584b1388c436c47b05a00b72dc9740, type: 3}
-  GracePeriodLength: 30
+  GracePeriodLength: 5
   EnenmyLimit: 10
   EnenmyInRound: 20
   EnenmiesLeftToSpawn: 0
@@ -4223,7 +4223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 876.1964, y: -393.754}
+  m_AnchoredPosition: {x: 718.33044, y: -208.60193}
   m_SizeDelta: {x: 723, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1197326216
@@ -4343,6 +4343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 1
   WeaponAnimator: {fileID: 8609641733352892857}
+  Empty: {fileID: 8776827265016763280, guid: 3bcbf602197575a4fb6cda1f8f368169, type: 3}
   Body: {fileID: 1228991606}
   Stock: {fileID: 953040210}
   Barrel: {fileID: 658653320111002454}
@@ -4369,6 +4370,7 @@ MonoBehaviour:
   RecoilReduction: 0.3
   MovementSpeed: 0.8000001
   ReloadSpeed: 1.8
+  NumberOfProjectiles: 1
 --- !u!1 &1237703747
 GameObject:
   m_ObjectHideFlags: 0
@@ -4606,7 +4608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1351580542
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4902,7 +4904,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 585.8511, y: 86.10123}
+  m_AnchoredPosition: {x: 516.9774, y: 124.17528}
   m_SizeDelta: {x: 723, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1468277149
@@ -4959,7 +4961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1531896468
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6010,6 +6012,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1596427472}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1742977850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742977845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76297503d579f60439c725bbceb432a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfProjectiles: 1
 --- !u!1 &1768373012
 GameObject:
   m_ObjectHideFlags: 0
@@ -6909,6 +6924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   WeaponAnimator: {fileID: 8609641733352892857}
+  Empty: {fileID: 8776827265016763280, guid: 3bcbf602197575a4fb6cda1f8f368169, type: 3}
   Body: {fileID: 8296172669123780416}
   Stock: {fileID: 8296172668198599265}
   Barrel: {fileID: 8296172667591475175}
@@ -6935,6 +6951,7 @@ MonoBehaviour:
   RecoilReduction: 0.15
   MovementSpeed: 0.175
   ReloadSpeed: 1
+  NumberOfProjectiles: 1
 --- !u!1001 &1978649328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7649,6 +7666,7 @@ MonoBehaviour:
   weaponSound: {fileID: 530510921}
   Damage: 0.5
   WeaponRange: 50
+  FireRateModifier: 0
   AccuracyModifier: 0.25
   MoveSpeedPenalty: 0.05
 --- !u!1 &824714661266314857
@@ -7679,8 +7697,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad50b6a8822c89c43856f922640dc550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMode: 0
+  debugMode: 1
   WeaponAnimator: {fileID: 8609641733352892857}
+  Empty: {fileID: 8776827265016763280, guid: 3bcbf602197575a4fb6cda1f8f368169, type: 3}
   Body: {fileID: 73635183538810518}
   Stock: {fileID: 1158583324}
   Barrel: {fileID: 6541460994925393627}
@@ -7697,16 +7716,17 @@ MonoBehaviour:
   EnemyImpactEffect: {fileID: 4870109791331871764, guid: 91ddb30803be8cb4a9e0ebce8c92b525,
     type: 3}
   MuzzleFlash: {fileID: 562203441}
-  AmmoType: 0
+  AmmoType: 3
   Damage: 6
   WeaponRange: 50
   SightMagnification: 0
   MagazineCapacity: 2
   Accuracy: 0.43500003
-  FireRate: 0.85
+  FireRate: 0.6
   RecoilReduction: 0.2
   MovementSpeed: 0.47500002
   ReloadSpeed: 0.77
+  NumberOfProjectiles: 8
 --- !u!23 &925870844824033961
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8110,6 +8130,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5398498235105418673}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2015965111514257744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015965111514257741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76297503d579f60439c725bbceb432a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfProjectiles: 1
 --- !u!1 &2048835156785634133
 GameObject:
   m_ObjectHideFlags: 0
@@ -8881,6 +8914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 1
   WeaponAnimator: {fileID: 8609641733352892857}
+  Empty: {fileID: 8776827265016763280, guid: 3bcbf602197575a4fb6cda1f8f368169, type: 3}
   Body: {fileID: 7253729145111125562}
   Stock: {fileID: 5622120909047006989}
   Barrel: {fileID: 735564799612020215}
@@ -8907,6 +8941,7 @@ MonoBehaviour:
   RecoilReduction: 0.2
   MovementSpeed: 0.47000003
   ReloadSpeed: 1.6
+  NumberOfProjectiles: 1
 --- !u!4 &4216876554119857158
 Transform:
   m_ObjectHideFlags: 0
@@ -9023,6 +9058,7 @@ GameObject:
   - component: {fileID: 588743170753205970}
   - component: {fileID: 8462444519871327460}
   - component: {fileID: 2759630283889856541}
+  - component: {fileID: 4499372089101804738}
   m_Layer: 0
   m_Name: ScatterBurst_Focus
   m_TagString: Untagged
@@ -9030,6 +9066,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4499372089101804738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4499372089101804737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76297503d579f60439c725bbceb432a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfProjectiles: 8
 --- !u!4 &4515158516957889154
 Transform:
   m_ObjectHideFlags: 0
@@ -9519,6 +9568,75 @@ Transform:
   m_Father: {fileID: 7647061033282682087}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5507399908321469303
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.741301
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.687528
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 33.644615
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011353691847519420, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8776827265016763280, guid: 3bcbf602197575a4fb6cda1f8f368169,
+        type: 3}
+      propertyPath: m_Name
+      value: Empty
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3bcbf602197575a4fb6cda1f8f368169, type: 3}
 --- !u!4 &5598196278456979697
 Transform:
   m_ObjectHideFlags: 0
@@ -9907,6 +10025,7 @@ MonoBehaviour:
   weaponSound: {fileID: 951595767}
   Damage: 3
   WeaponRange: 25
+  FireRateModifier: 0.25
   AccuracyModifier: 0.015
   MoveSpeedPenalty: 0.05
 --- !u!64 &6614751413444061930
@@ -11163,6 +11282,7 @@ MonoBehaviour:
   weaponSound: {fileID: 1691127148}
   Damage: 0.25
   WeaponRange: 25
+  FireRateModifier: 0
   AccuracyModifier: 37.5
   MoveSpeedPenalty: 0.03
 --- !u!1 &8296172668198599265
@@ -11286,6 +11406,7 @@ GameObject:
   - component: {fileID: 4096031305440283278}
   - component: {fileID: 7774496834393618039}
   - component: {fileID: 7105556944953666183}
+  - component: {fileID: 8347520464821420716}
   m_Layer: 8
   m_Name: TE_Mauler_Barrel_Attachment
   m_TagString: Untagged
@@ -11293,6 +11414,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8347520464821420716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347520464821420715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76297503d579f60439c725bbceb432a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfProjectiles: 1
 --- !u!1 &8400859209403969864
 GameObject:
   m_ObjectHideFlags: 0

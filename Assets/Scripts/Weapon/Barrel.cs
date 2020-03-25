@@ -9,6 +9,7 @@ public class Barrel : MonoBehaviour
 
     public float Damage;
     public int WeaponRange;
+    public float FireRateModifier;
     public float AccuracyModifier;
     public float MoveSpeedPenalty;
 }
