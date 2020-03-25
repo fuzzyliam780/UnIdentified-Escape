@@ -320,8 +320,31 @@ public class Weapon : MonoBehaviour
 
 
             Quaternion qRot = Random.rotation;
-
-            float angle = 10f - (Accuracy * 10f);
+            float angle = 0.0f;
+            switch (WeaponAnimator.GetInteger("Weapon"))
+            {
+                case 1://Firesleet
+                    angle = 0.2f - (Accuracy * 0.1f);
+                    break;
+                case 2://mauler
+                    angle = 1f - (Accuracy * 0.5f);
+                    break;
+                case 3://grimbrand
+                    angle = 1f - (Accuracy * 0.5f);
+                    break;
+                case 4://Scatterburst
+                    angle = 10f - (Accuracy * 10f);
+                    break;
+                case 5://archtronic
+                    angle = 1f - (Accuracy * 0.5f);
+                    break;
+                case 6://hellwailer
+                    angle = 3f - (Accuracy * 3f);
+                    break;
+                default:
+                    angle = 10f - (Accuracy * 10f);
+                    break;
+            }
 
             Quaternion qRot2 = Quaternion.RotateTowards(Camera.main.transform.rotation, qRot, angle);
 

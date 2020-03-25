@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
             case "ScatterBurst_Modular":
                 slot1Index = 4;
                 break;
+            case "Archtronic_Modular":
+                slot1Index = 5;
+                break;
             default:
                 slot1Index = 0;
                 break;
@@ -66,6 +69,9 @@ public class Player : MonoBehaviour
                 break;
             case "ScatterBurst_Modular":
                 slot2Index = 4;
+                break;
+            case "Archtronic_Modular":
+                slot2Index = 5;
                 break;
             default:
                 slot2Index = 0;
