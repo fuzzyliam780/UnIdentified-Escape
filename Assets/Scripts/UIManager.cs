@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
 
     public static void updateAmmoCounter(int currentAmmoInMag,int maxAmmoForMag,int currentAmmo)
     {
-        ammoCounter.text = "" + currentAmmoInMag + "/" + maxAmmoForMag + "\n" + currentAmmo;
+        ammoCounter.text = "" + currentAmmoInMag + "/" + currentAmmo;
     }
 
     public static void updateRoundCountdown(float currnetTime)

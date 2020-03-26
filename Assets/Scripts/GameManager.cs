@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum GameStage
 {
-    diskRaise,
+    ElevatorRaise,
     gracePeriod,
     roundInProgress,
     roundOver
@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
     public static bool DebugMode = true;
     public GameStage GameFlow;
     public List<GameObject> Spawners;
-    public GameObject Disk;
     public GameObject Player;
     public GameObject Enemy;
+    public Animator animator;
 
     public float GracePeriodLength = 30f;
     float GracePeriodTime;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameFlow = GameStage.diskRaise;
+        GameFlow = GameStage.ElevatorRaise;
         EnenmiesLeft = EnenmyInRound;
         EnenmiesLeftToSpawn = EnenmyInRound;
         enemies = new List<GameObject>(EnenmyLimit);
@@ -47,13 +47,11 @@ public class GameManager : MonoBehaviour
     {
         switch (GameFlow)
         {
-            case GameStage.diskRaise:
+            case GameStage.ElevatorRaise:
 
-                Disk.transform.position = Vector3.MoveTowards(Disk.transform.position, new Vector3(0,-0.5f,0), Time.deltaTime/2);
-                if (Disk.transform.position == new Vector3(0, -0.5f, 0))
-                {
-                    GameFlow = GameStage.gracePeriod;
-                }
+                animator.SetBool("Elevate", false);
+                GameFlow = GameStage.gracePeriod;
+
                 break;
             case GameStage.gracePeriod:
                 if (!UIManager.roundInfoPanel.activeInHierarchy && (!UIManager.inspecting && !UIManager.SkillMenuActive))

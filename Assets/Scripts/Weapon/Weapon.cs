@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
 
     public Animator WeaponAnimator;
 
+    public GameObject Empty;
+
     [Header("Attachment GameObjects")]
     public GameObject Body;
     public GameObject Stock;
@@ -18,7 +20,6 @@ public class Weapon : MonoBehaviour
     public GameObject GripAlt1;
     public GameObject Magazine;
     public GameObject Sight;
-    public GameObject Projectile;
 
     //Inspector Attachment Indexes
     private int index_barrel = 0;
@@ -36,25 +37,12 @@ public class Weapon : MonoBehaviour
 
     private AudioSource weaponSound;
 
-    [Header("Fire Rate & Recoil")]
-    public int fireRate = 30;
-    int FirerateFrames;
-
-    public int RecoilFrames = 10;
-    public int RisingRecoilFrames;
-    public int ReturningRecoilFrames;
+    [Header("Effects")]
 
     bool reloading = false;
-    public int ReloadFrames = 30;
-    int Reload_LoweringFrames;
-    int Reload_RisingFrames;
 
     [Header("Inspect")]
     private bool inspecting = false;
-    public Vector3 restingPosition = new Vector3(-0.198f, 0.38f, 0.05813932f);
-    public Vector3 restingRotation = new Vector3(0f, 0f, 0f);
-    public Vector3 insepctingRotation = new Vector3 (-16.937f,-43.395f,6.708f);
-    public Vector3 insepctingPosition = new Vector3(-0.588f, 0.553f, 0.471f);
 
     Vector3 magazine_resting_pos;
 
@@ -64,7 +52,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Weapon Stats")]
     [ShowOnly] public AmmoType AmmoType;
-    [ShowOnly] public int Damage;
+    [ShowOnly] public float Damage;
     [ShowOnly] public int WeaponRange;
     [ShowOnly] public int SightMagnification;
     [ShowOnly] public int MagazineCapacity;
@@ -73,7 +61,9 @@ public class Weapon : MonoBehaviour
     [ShowOnly] public float RecoilReduction;
     [ShowOnly] public float MovementSpeed;
     [ShowOnly] public float ReloadSpeed;
+    [ShowOnly] public float NumberOfProjectiles;
 
+    private bool statsComputed = false;
     private float NextTimeToFire = 0;
     private float TimeToAddAmmo = 0;
 
@@ -88,9 +78,17 @@ public class Weapon : MonoBehaviour
         //Reload_LoweringFrames = ReloadFrames / 2;
         //Reload_RisingFrames = ReloadFrames / 2;
 
-        maxAmmo = MagazineCapacity * 10;
+        if (debugMode)
+        {
+            maxAmmo = MagazineCapacity * 1000;
+        }
+        else
+        {
+            maxAmmo = MagazineCapacity * 10;
+        }
         currentRoundsInMag = MagazineCapacity;
         currentAmmo = maxAmmo;
+        transform.gameObject.SetActive(false);
     }
 
     private void OnValidate()
@@ -102,6 +100,16 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!statsComputed)
+        {
+            updateAttachments();
+            CalculateStats();
+        }
+
+        if (NextTimeToFire > Time.time + 1000f)
+        {
+            NextTimeToFire = 0;
+        }
 
         if (WeaponAnimator.GetBool("firing") && !WeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("fire"))
         {
@@ -116,7 +124,7 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetButton("Fire1") && Time.time >= NextTimeToFire)
         {
-            NextTimeToFire = Time.time + 1f / FireRate;
+            NextTimeToFire = Time.time + FireRate;
             if (currentRoundsInMag != 0)
             {
                 FireWeapon();
@@ -130,6 +138,11 @@ public class Weapon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && !WeaponAnimator.GetBool("reloading"))
         {
             Reload();
+            if (WeaponAnimator.GetInteger("Weapon") == 4)
+            {
+                SBLightsController sblc = GetComponent<SBLightsController>();
+                sblc.StartReloadTimers();
+            }
         }
         else if (WeaponAnimator.GetBool("reloading") && Time.time >= TimeToAddAmmo)
         {
@@ -137,6 +150,8 @@ public class Weapon : MonoBehaviour
             WeaponAnimator.SetBool("reloading", false);
         }
     }
+
+
 
     void ChangeMagazineAmmo(int delta = -1)
     {
@@ -174,6 +189,7 @@ public class Weapon : MonoBehaviour
         ReloadSpeed = 0;
         RecoilReduction = 0;
         MovementSpeed = 0;
+        NumberOfProjectiles = 0;
 
 
         //Magazine
@@ -181,6 +197,7 @@ public class Weapon : MonoBehaviour
         MagazineCapacity = Magazine.GetComponent<Magazine>().MagazineCapacity;
         MovementSpeed += Magazine.GetComponent<Magazine>().MoveSpeedPenalty;
         ReloadSpeed = Magazine.GetComponent<Magazine>().ReloadSpeed;
+        AmmoType = Magazine.GetComponent<Magazine>().AmmoType;
 
         //Sight
         SightMagnification = Sight.GetComponent<Sight>().Magnification;
@@ -200,14 +217,20 @@ public class Weapon : MonoBehaviour
                 WeaponRange += Barrel.GetComponent<Barrel>().WeaponRange;
                 Accuracy -= Barrel.GetComponent<Barrel>().AccuracyModifier;
                 MovementSpeed += Barrel.GetComponent<Barrel>().MoveSpeedPenalty;
+                FireRate -= Barrel.GetComponent<Barrel>().FireRateModifier;
                 break;
             case Barrels.ShortBarrel:
                 Damage += BarrelAlt1.GetComponent<Barrel>().Damage;
                 WeaponRange += BarrelAlt1.GetComponent<Barrel>().WeaponRange;
                 Accuracy += BarrelAlt1.GetComponent<Barrel>().AccuracyModifier;
                 MovementSpeed += BarrelAlt1.GetComponent<Barrel>().MoveSpeedPenalty;
+                FireRate -= BarrelAlt1.GetComponent<Barrel>().FireRateModifier;
                 break;
         }
+
+        //Barrel Attachment
+        NumberOfProjectiles = BarrelExt.GetComponent<BarrelAttachment>().NumberOfProjectiles;
+        if (NumberOfProjectiles == 0) NumberOfProjectiles = 1;
 
         //Grip
         switch (AttachedGrip)
@@ -227,6 +250,8 @@ public class Weapon : MonoBehaviour
         //Stock
         RecoilReduction += Stock.GetComponent<Stock>().RecoilReductionModifier;
         MovementSpeed += Stock.GetComponent<Stock>().MoveSpeedPenalty;
+
+        statsComputed = true;
     }
 
     void Inspect()
@@ -263,14 +288,91 @@ public class Weapon : MonoBehaviour
         ChangeMagazineAmmo();
         WeaponAnimator.SetBool("firing", true);
 
-        RaycastHit hit;
+        if (WeaponAnimator.GetInteger("Weapon") == 4)
+        {
+            SBLightsController sblc = GetComponent<SBLightsController>();
+            if (Magazine.activeInHierarchy)
+            {
+                sblc.Fire2Rnd();
+            }
+            else
+            {
+                sblc.Fire4Rnd();
+            }
+            for (int i = 0; i < NumberOfProjectiles; i++)
+            {
+                FireRayCast();
+            }
+        }
+        else
+        {
+            FireRayCast();
+        }
+            
+    }
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, WeaponRange)) //Fire raycast from current weapon position forward until it hits something or reaches the maximum range
+    Vector3 GenerateProjectileAngle()
+    {
+        if (true)
+        {
+            Vector3 Rot;
+            Vector3 forward = Camera.main.transform.forward;
+
+
+            Quaternion qRot = Random.rotation;
+            float angle = 0.0f;
+            switch (WeaponAnimator.GetInteger("Weapon"))
+            {
+                case 1://Firesleet
+                    angle = 0.2f - (Accuracy * 0.1f);
+                    break;
+                case 2://mauler
+                    angle = 1f - (Accuracy * 0.5f);
+                    break;
+                case 3://grimbrand
+                    angle = 1f - (Accuracy * 0.5f);
+                    break;
+                case 4://Scatterburst
+                    angle = 10f - (Accuracy * 10f);
+                    break;
+                case 5://archtronic
+                    angle = 1f - (Accuracy * 0.5f);
+                    break;
+                case 6://hellwailer
+                    angle = 3f - (Accuracy * 3f);
+                    break;
+                default:
+                    angle = 10f - (Accuracy * 10f);
+                    break;
+            }
+
+            Quaternion qRot2 = Quaternion.RotateTowards(Camera.main.transform.rotation, qRot, angle);
+
+            Rot = qRot2.eulerAngles;
+
+            return Rot;
+        }
+        else
+        {
+            return Camera.main.transform.forward;
+        }
+    }
+
+    void FireRayCast()
+        {
+        RaycastHit hit;
+        GameObject go = Instantiate(Empty); ;
+        go.transform.position = Camera.main.transform.position;
+        go.transform.eulerAngles = GenerateProjectileAngle();
+
+
+
+        if (Physics.Raycast(transform.position, go.transform.forward, out hit, WeaponRange)) //Fire raycast from current weapon position forward until it hits something or reaches the maximum range
         {//if something is hit
             if (debugMode)
             {
                 Debug.Log(hit.transform.name);//Log the name of the hit object
-                Debug.DrawLine(transform.position, hit.point, Color.black,2); //Draw a black line in the SCENE view between the current weapon position and the position of the point the raycast hit that will last for 2 seconds
+                Debug.DrawLine(transform.position, hit.point, Color.red, 2); //Draw a black line in the SCENE view between the current weapon position and the position of the point the raycast hit that will last for 2 seconds
             }
 
             Enemy tempEnemy = hit.transform.GetComponent<Enemy>();
@@ -279,7 +381,7 @@ public class Weapon : MonoBehaviour
             if (tempEnemy != null)// If an enemy is hit
             {
                 ImpactGO = Instantiate(EnemyImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                tempEnemy.takeDamage(Damage + SkillManager.damageBoost);
+                tempEnemy.takeDamage((Damage + SkillManager.damageBoost)/NumberOfProjectiles);
                 UIManager.updateScore(1);
             }
             else // If something other than an enemy if hit
@@ -291,9 +393,10 @@ public class Weapon : MonoBehaviour
         }
         else if (debugMode) //if nothing is hit
         {
-            Debug.DrawLine(transform.position, transform.position + transform.forward * WeaponRange, Color.red, 2);
+            Debug.DrawLine(transform.position, transform.position + transform.forward * WeaponRange, Color.black, 2);
         }
-        
+        Destroy(go);
+
     }
 
     void Reload()
