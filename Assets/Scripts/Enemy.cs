@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
 
     public Material normal;
-    public Material hurt;
-    public MeshRenderer MR;
+    public Material Death;
+    public SkinnedMeshRenderer MR;
     private Animator animator;
 
     bool isHurt = false;
@@ -18,6 +18,9 @@ public class Enemy : MonoBehaviour
     public int attackFrames;
     public int hurtFrames;
     public bool isWalking = false;
+    public bool isDissolving = false;
+    public float _Time = 0f;
+    public int DissolveTime;
 
     public float Health = 10f;
 
@@ -26,6 +29,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _Time = 0f;
         Player = GameObject.Find("Character");
         hurtFrames = hurtDuration;
         
@@ -53,6 +57,17 @@ public class Enemy : MonoBehaviour
                 isHurt = false;
             }
         }
+        if (isDissolving)
+        {
+            _Time += Time.deltaTime * DissolveTime;
+            if (_Time >= 8)
+            {
+                _Time = 0f;
+                isDissolving = false;
+                GameManager.RemoveEnemy(transform.gameObject);
+            }
+            Death.SetFloat("Time", _Time);
+        }
         transform.position = Vector3.MoveTowards(transform.position,Player.transform.position, Speed * Time.deltaTime);
 
         RaycastHit hit;
@@ -77,13 +92,12 @@ public class Enemy : MonoBehaviour
         }
         if (Health <= 0)
         {
-            GameManager.RemoveEnemy(transform.gameObject);
+            MR.material = Death;
+            isDissolving = true;
+            //GameManager.RemoveEnemy(transform.gameObject);
             UIManager.updateScore(5);
             SkillManager.grantXP(1);
         }
-        if (isHurt) return;
-        MR.material = hurt;
-        isHurt = true;
     }
 
     private void OnCollisionEnter(Collision collision)
