@@ -375,7 +375,7 @@ public class Weapon : MonoBehaviour
                 Debug.DrawLine(transform.position, hit.point, Color.red, 2); //Draw a black line in the SCENE view between the current weapon position and the position of the point the raycast hit that will last for 2 seconds
             }
 
-            Enemy tempEnemy = hit.transform.GetComponent<Enemy>();
+            TestEnemy tempEnemy = hit.transform.GetComponent<TestEnemy>();
             GameObject ImpactGO;
 
             if (tempEnemy != null)// If an enemy is hit

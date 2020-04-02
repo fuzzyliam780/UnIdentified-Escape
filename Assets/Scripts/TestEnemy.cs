@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class TestEnemy : MonoBehaviour
 {
     public GameObject Player;
 
@@ -13,7 +14,6 @@ public class Enemy : MonoBehaviour
 
     bool isHurt = false;
     bool grounded;
-    bool AlreadyDead = false;
     public int hurtDuration = 5;
     public int attackDuration = 20;
     public int attackFrames;
@@ -27,24 +27,38 @@ public class Enemy : MonoBehaviour
 
     public float Speed = 2.5f;
 
-    // Start is called before the first frame update
+    public Transform destination;
+    NavMeshAgent navMeshAgent;
+
     void Start()
     {
         _Time = 0f;
         Player = GameObject.Find("Character");
         hurtFrames = hurtDuration;
-        
+
         animator = GetComponent<Animator>();
+
+        navMeshAgent = this.GetComponent<NavMeshAgent>();
+
+        if (navMeshAgent == null)
+        {
+            Debug.LogError("The nav mesh agent componenet is not attached to " + gameObject.name);
+        }
+        else
+        {
+            SetDestination();
+        }
+
+        destination = Player.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(attackFrames > 0)
+        if (attackFrames > 0)
         {
             attackFrames--;
         }
-        else if(attackFrames == 0)
+        else if (attackFrames == 0)
         {
             StopAttacking();
         }
@@ -69,19 +83,18 @@ public class Enemy : MonoBehaviour
             }
             Death.SetFloat("Time", _Time);
         }
-        transform.position = Vector3.MoveTowards(transform.position,Player.transform.position, Speed * Time.deltaTime);
-
-        RaycastHit hit;
-        Physics.Raycast(transform.position, -transform.up, out hit, Mathf.Infinity, 1 << 10);
-        transform.position = new Vector3(transform.position.x,hit.point.y, transform.position.z);
-
-
-        transform.LookAt(Player.transform.position,transform.up);
-        transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
-
-
+        SetDestination();
         animator.SetBool("isWalking", true);
         isWalking = true;
+    }
+
+    private void SetDestination()
+    {
+        if (destination != null)
+        {
+            Vector3 targetVector = destination.transform.position;
+            navMeshAgent.SetDestination(targetVector);
+        }
     }
 
     public void takeDamage(float damageToTake = 1)
@@ -91,9 +104,8 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log(transform.name + " Took " + damageToTake + " damage, Remaing Health: " + Health);
         }
-        if (Health <= 0 && !AlreadyDead)
+        if (Health <= 0)
         {
-            AlreadyDead = true;
             MR.material = Death;
             isDissolving = true;
             //GameManager.RemoveEnemy(transform.gameObject);
@@ -102,20 +114,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        GameObject go = collision.gameObject;
-        if (go.layer == 11)
-        {
-            Destroy(go);
-            takeDamage();
-        }
-    }
-
-
     public void Attacking()
     {
         attackFrames = attackDuration;
+        Debug.Log("attacked");
         animator.SetBool("attacked", true);
 
         //yield WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
@@ -125,9 +127,7 @@ public class Enemy : MonoBehaviour
     {
         animator.SetBool("attacked", false);
     }
-    /**
-     *  Checks if the character is grounded or not
-     */
+
     private bool isGrounded()
     {
         if (Physics.Raycast(transform.position, -transform.up, 0.5f * 2, 1 << 10))
