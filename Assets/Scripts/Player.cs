@@ -49,6 +49,9 @@ public class Player : MonoBehaviour
             case "Archtronic_Modular":
                 slot1Index = 5;
                 break;
+            case "Hallwailer_Modular":
+                slot1Index = 6;
+                break;
             default:
                 slot1Index = 0;
                 break;
@@ -72,6 +75,9 @@ public class Player : MonoBehaviour
                 break;
             case "Archtronic_Modular":
                 slot2Index = 5;
+                break;
+            case "Hellwailer_Modular":
+                slot2Index = 6;
                 break;
             default:
                 slot2Index = 0;

@@ -49,6 +49,7 @@ public class Weapon : MonoBehaviour
     public GameObject GroundImpactEffect;
     public GameObject EnemyImpactEffect;
     public ParticleSystem MuzzleFlash;
+    public GameObject projectile;
 
     [Header("Weapon Stats")]
     [ShowOnly] public AmmoType AmmoType;
@@ -302,6 +303,26 @@ public class Weapon : MonoBehaviour
             for (int i = 0; i < NumberOfProjectiles; i++)
             {
                 FireRayCast();
+            }
+        }
+        else if (WeaponAnimator.GetInteger("Weapon") == 6)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(Barrel.transform.position, Camera.main.transform.forward, out hit, WeaponRange))
+            {
+                GameObject proj_go = Instantiate<GameObject>(projectile);
+
+                proj_go.transform.position = Barrel.transform.position;
+                proj_go.GetComponent<HellwailerProjectile>().initialize(hit.point, 0.33f);
+
+                Debug.DrawRay(transform.position, Camera.main.transform.forward, Color.red, 10f);
+                if (debugMode)
+                {
+                    Debug.Log("Hellwailer_Projile Target: " + hit.transform.name);
+                    Debug.Log("Hellwailer_Projile Current Pos: " + transform.position.ToString());
+                    Debug.Log("Hellwailer_Projile Destination: " + hit.point.ToString());
+                }
             }
         }
         else

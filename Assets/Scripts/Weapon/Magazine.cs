@@ -9,6 +9,7 @@ public enum AmmoType
     ice,
     electric,
     explosive,
+    acid,
 }
 
 public class Magazine : MonoBehaviour
