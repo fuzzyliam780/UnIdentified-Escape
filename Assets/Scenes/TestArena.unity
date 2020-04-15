@@ -10954,7 +10954,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.7e-44, y: 0, z: 7.057e-42, w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: -0.17691623, z: 0.28710097, w: 0.9414211}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -12620,7 +12620,7 @@ MonoBehaviour:
   Player: {fileID: 912535472}
   Enemy: {fileID: 1508314318350242264, guid: 57d0bdc9e8a34f34db1a81384dc8fefa, type: 3}
   animator: {fileID: 58493726}
-  GracePeriodLength: 30
+  GracePeriodLength: 5
   EnenmyLimit: 10
   EnenmyInRound: 20
   EnenmiesLeftToSpawn: 0
