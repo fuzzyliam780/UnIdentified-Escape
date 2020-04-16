@@ -5,6 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public bool debugMode = false;
+    public bool forPlayer = true;
 
     public Animator WeaponAnimator;
 
@@ -101,54 +102,57 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!statsComputed)
+        if (forPlayer)
         {
-            updateAttachments();
-            CalculateStats();
-        }
-
-        if (NextTimeToFire > Time.time + 1000f)
-        {
-            NextTimeToFire = 0;
-        }
-
-        if (WeaponAnimator.GetBool("firing") && !WeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("fire"))
-        {
-            WeaponAnimator.SetBool("firing", false);
-        }
-
-        //Inspect
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            Inspect();
-        }
-
-        if (Input.GetButton("Fire1") && Time.time >= NextTimeToFire)
-        {
-            NextTimeToFire = Time.time + FireRate;
-            if (currentRoundsInMag != 0)
+            if (!statsComputed)
             {
-                FireWeapon();
+                updateAttachments();
+                CalculateStats();
             }
-            else
+
+            if (NextTimeToFire > Time.time + 1000f)
+            {
+                NextTimeToFire = 0;
+            }
+
+            if (WeaponAnimator.GetBool("firing") && !WeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("fire"))
+            {
+                WeaponAnimator.SetBool("firing", false);
+            }
+
+            //Inspect
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                Inspect();
+            }
+
+            if (Input.GetButton("Fire1") && Time.time >= NextTimeToFire)
+            {
+                NextTimeToFire = Time.time + FireRate;
+                if (currentRoundsInMag != 0)
+                {
+                    FireWeapon();
+                }
+                else
+                {
+                    Reload();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.R) && !WeaponAnimator.GetBool("reloading"))
             {
                 Reload();
+                if (WeaponAnimator.GetInteger("Weapon") == 4)
+                {
+                    SBLightsController sblc = GetComponent<SBLightsController>();
+                    sblc.StartReloadTimers();
+                }
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && !WeaponAnimator.GetBool("reloading"))
-        {
-            Reload();
-            if (WeaponAnimator.GetInteger("Weapon") == 4)
+            else if (WeaponAnimator.GetBool("reloading") && Time.time >= TimeToAddAmmo)
             {
-                SBLightsController sblc = GetComponent<SBLightsController>();
-                sblc.StartReloadTimers();
+                ChangeMagazineAmmo(0);
+                WeaponAnimator.SetBool("reloading", false);
             }
-        }
-        else if (WeaponAnimator.GetBool("reloading") && Time.time >= TimeToAddAmmo)
-        {
-            ChangeMagazineAmmo(0);
-            WeaponAnimator.SetBool("reloading", false);
         }
     }
 
