@@ -37,8 +37,8 @@ public class Weapon : MonoBehaviour
     int max_rounds_per_mag;
     int currentRoundsInMag;
 
-    int maxAmmo;
-    int currentAmmo;
+    public int maxAmmo;
+    public int currentAmmo;
 
     private AudioSource weaponSound;
 
@@ -171,7 +171,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void fillAmmo()
+    {
+        currentAmmo = maxAmmo;
+        updateAmmoUI();
+    }
 
+    public void updateAmmoUI()
+    {
+        uim.updateAmmoCounter(currentRoundsInMag, currentAmmo);
+    }
+
+    public bool atMaxAmmo()
+    {
+        return currentAmmo < maxAmmo;
+    }
 
     void ChangeMagazineAmmo(int delta = -1)
     {
@@ -194,7 +208,7 @@ public class Weapon : MonoBehaviour
                 currentAmmo = 0;
             }
         }
-        uim.updateAmmoCounter(currentRoundsInMag, MagazineCapacity, currentAmmo);
+        updateAmmoUI();
     }
 
     void CalculateStats()

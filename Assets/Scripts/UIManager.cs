@@ -37,9 +37,10 @@ public class UIManager : MonoBehaviour
     public Text health;
     public Text roundResult;
     public Text SkillPointIndicator;
+    public Text InteractionText;
 
     [Header("Other Values")]
-    public int scorePts = 0;
+    public float scorePts = 0;
     public int HealthPts = 30;
     public bool inspecting = false;
     public bool SkillMenuActive = false;
@@ -86,6 +87,11 @@ public class UIManager : MonoBehaviour
             toggleGameplayUI();
             toggleSkillsUI();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            updateScore(100f);
+        }
     }
 
     public static void toggleMouseLock()
@@ -103,9 +109,14 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void updateAmmoCounter(int currentAmmoInMag,int maxAmmoForMag,int currentAmmo)
+    public void updateAmmoCounter(int currentAmmoInMag,int currentAmmo)
     {
         ammoCounter.text = "" + currentAmmoInMag + "/" + currentAmmo;
+    }
+
+    public void updateInteractionText(string text)
+    {
+        InteractionText.text = text;
     }
 
     public void updateRoundCountdown(float currnetTime)
@@ -125,10 +136,10 @@ public class UIManager : MonoBehaviour
         roundInfo.text = "" + remainingEnemies;
     }
 
-    public void updateScore(int scoreToAdd)
+    public void updateScore(float scoreToAdd)
     {
         scorePts += scoreToAdd;
-        score.text = "" + scorePts;
+        score.text = scorePts.ToString("####");
     }
 
     public void setMaxHealth(int maxHealth)
