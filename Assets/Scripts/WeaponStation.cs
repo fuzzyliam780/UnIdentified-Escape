@@ -32,10 +32,10 @@ public class WeaponStation : MonoBehaviour
         if (!currentWeapon.activeInHierarchy) currentWeapon.SetActive(true);
     }
 
-    private void OnValidate()
-    {
-        setNewWeapon();
-    }
+    //private void OnValidate()
+    //{
+    //    setNewWeapon();
+    //}
 
     void setNewWeapon()
     {

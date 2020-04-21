@@ -12,6 +12,9 @@ public enum GameStage
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Managers")]
+    public UIManager uim;
+
     public static bool DebugMode = true;
     public GameStage GameFlow;
     public List<GameObject> Spawners;
@@ -54,16 +57,16 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameStage.gracePeriod:
-                if (!UIManager.roundInfoPanel.activeInHierarchy && (!UIManager.inspecting && !UIManager.SkillMenuActive))
+                if (!uim.roundInfoPanel.activeInHierarchy && (!uim.inspecting && !uim.SkillMenuActive))
                 {
-                    UIManager.roundInfoPanel.SetActive(true);
+                    uim.roundInfoPanel.SetActive(true);
                 }
                 GracePeriodTime -= Time.deltaTime;
-                UIManager.updateRoundCountdown(GracePeriodTime);
+                uim.updateRoundCountdown(GracePeriodTime);
 
                 if (GracePeriodTime <= 0f)
                 {
-                    UIManager.updateRoundEnemies(EnenmiesLeft);
+                    uim.updateRoundEnemies(EnenmiesLeft);
                     firstWave = true;
                     GameFlow = GameStage.roundInProgress;
                 }
@@ -98,7 +101,7 @@ public class GameManager : MonoBehaviour
                 if (firstWave) firstWave = false;
                 break;
             case GameStage.roundOver:
-                UIManager.updateRoundResult("You Win!");
+                uim.updateRoundResult("You Win!");
                 break;
         }
     }
@@ -142,12 +145,12 @@ public class GameManager : MonoBehaviour
         EnenmiesLeftToSpawn--;
     }
 
-    public static void RemoveEnemy(GameObject enemyToBeRemoved)
+    public void RemoveEnemy(GameObject enemyToBeRemoved)
     {
         enemies.Remove(enemyToBeRemoved);
         Destroy(enemyToBeRemoved);
         EnenmiesLeft--;
-        UIManager.updateRoundEnemies(EnenmiesLeft);
+        uim.updateRoundEnemies(EnenmiesLeft);
         if (EnenmiesLeft == 0)
         {
             foreach (GameObject go in enemies)

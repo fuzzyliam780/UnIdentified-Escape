@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Managers")]
+    public UIManager uim;
+    public GameManager gm;
+    public SkillManager sm;
+
     public GameObject Player;
 
     public Material normal;
@@ -65,7 +70,7 @@ public class Enemy : MonoBehaviour
             {
                 _Time = 0f;
                 isDissolving = false;
-                GameManager.RemoveEnemy(transform.gameObject);
+                gm.RemoveEnemy(transform.gameObject);
             }
             Death.SetFloat("Time", _Time);
         }
@@ -97,8 +102,8 @@ public class Enemy : MonoBehaviour
             MR.material = Death;
             isDissolving = true;
             //GameManager.RemoveEnemy(transform.gameObject);
-            UIManager.updateScore(5);
-            SkillManager.grantXP(1);
+            uim.updateScore(5);
+            sm.grantXP(1);
         }
     }
 

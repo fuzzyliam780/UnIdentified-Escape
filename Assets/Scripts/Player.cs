@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Managers")]
+    public UIManager uim;
+
     public int MaxHealth = 30;
     public int Health;
     public float HealthRegenCooldown = 3; //Time before Regen Starts
@@ -27,7 +30,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         Health = MaxHealth;
-        UIManager.setMaxHealth(MaxHealth);
+        uim.setMaxHealth(MaxHealth);
         TimeToStartHealing = 0;
 
         activeSlot = 1;
@@ -135,7 +138,7 @@ public class Player : MonoBehaviour
             if(Time.time >= TimeToNextHeal)
             {
                 Health++;
-                UIManager.updateHealth(1);
+                uim.updateHealth(1);
                 TimeToNextHeal = Time.time + TimeToNextHeal;
             }
         }
@@ -166,10 +169,10 @@ public class Player : MonoBehaviour
             Health--;
             if (Health == 0)
             {
-                UIManager.updateRoundResult("You Died!");
+                uim.updateRoundResult("You Died!");
                 return;
             }
-            UIManager.updateHealth(-1);
+            uim.updateHealth(-1);
             TimeToNextDamage = Time.time + DamageInterval;
             if (Health == MaxHealth - 1)
             {

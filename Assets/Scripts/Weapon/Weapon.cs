@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Managers")]
+    public UIManager uim;
+    public SkillManager sm;
+
     public bool debugMode = false;
     public bool forPlayer = true;
 
@@ -71,6 +75,15 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        if (uim == null)
+        {
+            uim = GameObject.Find("MainCanvas").GetComponent<UIManager>();
+        }
+        if (sm == null)
+        {
+            sm = GameObject.Find("Game Manager").GetComponent<SkillManager>();
+        }
+
         updateAttachments();
         CalculateStats();
 
@@ -179,7 +192,7 @@ public class Weapon : MonoBehaviour
                 currentAmmo = 0;
             }
         }
-        UIManager.updateAmmoCounter(currentRoundsInMag, MagazineCapacity, currentAmmo);
+        uim.updateAmmoCounter(currentRoundsInMag, MagazineCapacity, currentAmmo);
     }
 
     void CalculateStats()
@@ -261,25 +274,25 @@ public class Weapon : MonoBehaviour
 
     void Inspect()
     {
-        UIManager.toggleInspectUI();
+        uim.toggleInspectUI();
         WeaponAnimator.SetBool("inspecting", !WeaponAnimator.GetBool("inspecting"));
         if (WeaponAnimator.GetBool("inspecting")) return;
         switch (AttachedBarrel)
         {
             case Barrels.LongBarrel:
-                UIManager.updateBarrekCyclerPOS(Barrel.transform.position);
+                uim.updateBarrekCyclerPOS(Barrel.transform.position);
                 break;
             case Barrels.ShortBarrel:
-                UIManager.updateBarrekCyclerPOS(BarrelAlt1.transform.position);
+                uim.updateBarrekCyclerPOS(BarrelAlt1.transform.position);
                 break;
         }
         switch (AttachedGrip)
         {
             case Grips.RoundGrip:
-                UIManager.updateGripCyclerPOS(Grip.transform.position);
+                uim.updateGripCyclerPOS(Grip.transform.position);
                 break;
             case Grips.StraightGrip:
-                UIManager.updateGripCyclerPOS(GripAlt1.transform.position);
+                uim.updateGripCyclerPOS(GripAlt1.transform.position);
                 break;
         }
     }
@@ -406,8 +419,8 @@ public class Weapon : MonoBehaviour
             if (tempEnemy != null)// If an enemy is hit
             {
                 ImpactGO = Instantiate(EnemyImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                tempEnemy.takeDamage((Damage + SkillManager.damageBoost)/NumberOfProjectiles);
-                UIManager.updateScore(1);
+                tempEnemy.takeDamage((Damage + sm.damageBoost)/NumberOfProjectiles);
+                uim.updateScore(1);
             }
             else // If something other than an enemy if hit
             {
@@ -444,11 +457,11 @@ public class Weapon : MonoBehaviour
             weaponSound = Barrel.GetComponent<Barrel>().weaponSound;
             Barrel.SetActive(true);
             BarrelAlt1.SetActive(false);
-            if (UIManager.BarrelCycler != null)
+            if (uim.BarrelCycler != null)
             {
-                if (UIManager.BarrelCycler.activeInHierarchy)
+                if (uim.BarrelCycler.activeInHierarchy)
                 {
-                    UIManager.updateBarrekCyclerPOS(Barrel.transform.position);
+                    uim.updateBarrekCyclerPOS(Barrel.transform.position);
                 }
             }
         }
@@ -458,11 +471,11 @@ public class Weapon : MonoBehaviour
             weaponSound = BarrelAlt1.GetComponent<Barrel>().weaponSound;
             BarrelAlt1.SetActive(true);
             Barrel.SetActive(false);
-            if (UIManager.BarrelCycler != null)
+            if (uim.BarrelCycler != null)
             {
-                if (UIManager.BarrelCycler.activeInHierarchy)
+                if (uim.BarrelCycler.activeInHierarchy)
                 {
-                    UIManager.updateBarrekCyclerPOS(BarrelAlt1.transform.position);
+                    uim.updateBarrekCyclerPOS(BarrelAlt1.transform.position);
                 }
             }
         }
@@ -476,11 +489,11 @@ public class Weapon : MonoBehaviour
         {
             Grip.SetActive(true);
             GripAlt1.SetActive(false);
-            if (UIManager.BarrelCycler != null)
+            if (uim.BarrelCycler != null)
             {
-                if (UIManager.GripCycler.activeInHierarchy)
+                if (uim.GripCycler.activeInHierarchy)
                 {
-                    UIManager.updateGripCyclerPOS(Grip.transform.position);
+                    uim.updateGripCyclerPOS(Grip.transform.position);
                 }
             }
         }
@@ -488,11 +501,11 @@ public class Weapon : MonoBehaviour
         {
             GripAlt1.SetActive(true);
             Grip.SetActive(false);
-            if (UIManager.BarrelCycler != null)
+            if (uim.BarrelCycler != null)
             {
-                if (UIManager.GripCycler.activeInHierarchy)
+                if (uim.GripCycler.activeInHierarchy)
                 {
-                    UIManager.updateGripCyclerPOS(GripAlt1.transform.position);
+                    uim.updateGripCyclerPOS(GripAlt1.transform.position);
                 }
             }
         }
