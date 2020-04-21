@@ -5,7 +5,13 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    //Game Play Panels
+
+    [Header("Panel Groups")]
+    public GameObject SkillsUIPrefab;
+    GameObject SkillsUI;
+
+
+    [Header("Game Play Panels")]
     public GameObject roundInfoPanel;
     public GameObject roundResultPanel;
     public GameObject ScorePanel;
@@ -13,18 +19,18 @@ public class UIManager : MonoBehaviour
     public GameObject AmmoCounterPanel;
     public GameObject crosshair;
 
-    //Inspect Panels
+    [Header("Inspect Panels")]
     public GameObject BarrelCycler;
     public GameObject GripCycler;
 
-    //Skills Panels
+    [Header("Skills Panels")]
     public GameObject SkillsPanel;
     public Button Skill1Button;
     public Button Skill2Button;
     public Button Skill3Button;
     public Button Skill4Button;
 
-    //Text Objects
+    [Header("Text Objects")]
     public Text ammoCounter;
     public Text roundInfo;
     public Text score;
@@ -32,7 +38,7 @@ public class UIManager : MonoBehaviour
     public Text roundResult;
     public Text SkillPointIndicator;
 
-    //Other Values
+    [Header("Other Values")]
     public int scorePts = 0;
     public int HealthPts = 30;
     public bool inspecting = false;
@@ -69,7 +75,7 @@ public class UIManager : MonoBehaviour
         GripCycler.SetActive(false);
 
         //SkillsPanel = GameObject.Find("Skills Panel");
-        SkillsPanel.SetActive(false);
+        //SkillsPanel.SetActive(false);
 
     }
 
@@ -144,7 +150,7 @@ public class UIManager : MonoBehaviour
 
     public void updateSkillPointIndicator(int currentSkillPoints)
     {
-        SkillPointIndicator.text = "" + currentSkillPoints;
+        SkillsUI.GetComponent<SkillsUIManager>().SkillPointIndicator.text = "" + currentSkillPoints;
     }
 
     public void updateBarrekCyclerPOS(Vector3 BarrelPos)
@@ -175,9 +181,22 @@ public class UIManager : MonoBehaviour
         GripCycler.SetActive(!GripCycler.activeInHierarchy);
     }
 
+    //public void toggleSkillsUI()
+    //{
+    //    SkillMenuActive = !SkillMenuActive;
+    //    SkillsPanel.SetActive(!SkillsPanel.activeInHierarchy);
+    //}
+
     public void toggleSkillsUI()
     {
+        if (!SkillMenuActive)
+        {
+            SkillsUI = Instantiate<GameObject>(SkillsUIPrefab,transform);
+        }
+        else
+        {
+            Destroy(SkillsUI);
+        }
         SkillMenuActive = !SkillMenuActive;
-        SkillsPanel.SetActive(!SkillsPanel.activeInHierarchy);
     }
 }

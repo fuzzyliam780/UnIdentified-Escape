@@ -24,7 +24,7 @@ public class SkillManager : MonoBehaviour
         {
             XP -= 4;
             SkillPoints++;
-            uim.updateSkillPointIndicator(SkillPoints);
+            //uim.updateSkillPointIndicator(SkillPoints);
         }
     }
 

@@ -138,17 +138,19 @@ public class Weapon : MonoBehaviour
             {
                 Inspect();
             }
-
-            if (Input.GetButton("Fire1") && Time.time >= NextTimeToFire)
+            if (!uim.SkillMenuActive)
             {
-                NextTimeToFire = Time.time + FireRate;
-                if (currentRoundsInMag != 0)
+                if (Input.GetButton("Fire1") && Time.time >= NextTimeToFire)
                 {
-                    FireWeapon();
-                }
-                else
-                {
-                    Reload();
+                    NextTimeToFire = Time.time + FireRate;
+                    if (currentRoundsInMag != 0)
+                    {
+                        FireWeapon();
+                    }
+                    else
+                    {
+                        Reload();
+                    }
                 }
             }
 
