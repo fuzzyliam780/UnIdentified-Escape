@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad50b6a8822c89c43856f922640dc550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uim: {fileID: 0}
+  sm: {fileID: 0}
   debugMode: 1
   forPlayer: 0
   WeaponAnimator: {fileID: 0}
@@ -68,6 +70,8 @@ MonoBehaviour:
   Sight: {fileID: 2405242391891594087}
   AttachedBarrel: 0
   AttachedGrip: 0
+  maxAmmo: 0
+  currentAmmo: 0
   GroundImpactEffect: {fileID: 2840997326696675346, guid: 968a2bdaa93b3174d8f596163335e8ab,
     type: 3}
   EnemyImpactEffect: {fileID: 4870109791331871764, guid: 91ddb30803be8cb4a9e0ebce8c92b525,
