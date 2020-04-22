@@ -131,6 +131,7 @@ public class Weapon : MonoBehaviour
             if (NextTimeToFire > Time.time + 1000f)
             {
                 NextTimeToFire = 0;
+                MuzzleFlash.Play();
             }
 
             if (WeaponAnimator.GetBool("firing") && !WeaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("fire"))
