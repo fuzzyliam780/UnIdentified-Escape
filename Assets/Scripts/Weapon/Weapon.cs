@@ -108,6 +108,11 @@ public class Weapon : MonoBehaviour
 
     private void OnValidate()
     {
+        if (uim == null)
+        {
+            uim = GameObject.Find("MainCanvas").GetComponent<UIManager>();
+        }
+
         updateAttachments();
         CalculateStats();
     }
@@ -473,11 +478,14 @@ public class Weapon : MonoBehaviour
             weaponSound = Barrel.GetComponent<Barrel>().weaponSound;
             Barrel.SetActive(true);
             BarrelAlt1.SetActive(false);
-            if (uim.BarrelCycler != null)
+            if(uim != null)
             {
-                if (uim.BarrelCycler.activeInHierarchy)
+                if (uim.BarrelCycler != null)
                 {
-                    uim.updateBarrekCyclerPOS(Barrel.transform.position);
+                    if (uim.BarrelCycler.activeInHierarchy)
+                    {
+                        uim.updateBarrekCyclerPOS(Barrel.transform.position);
+                    }
                 }
             }
         }

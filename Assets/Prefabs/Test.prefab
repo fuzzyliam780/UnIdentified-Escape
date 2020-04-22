@@ -1623,7 +1623,7 @@ GameObject:
   - component: {fileID: 3978850369253752726}
   m_Layer: 9
   m_Name: Test
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1815,6 +1815,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5914a47d8db9b614aa22ef12365c2b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uim: {fileID: 0}
+  gm: {fileID: 0}
+  sm: {fileID: 0}
   Player: {fileID: 0}
   normal: {fileID: 2100000, guid: f4498c2020b78d54e968cea5a6b26b44, type: 2}
   Death: {fileID: 2100000, guid: cb5054446d66c584683254e59b816607, type: 2}
