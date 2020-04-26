@@ -331,7 +331,8 @@ public class Player : MonoBehaviour
 
         if (go.layer == 9)
         {
-            go.GetComponent<TestEnemy>().Attacking();
+            go.GetComponent<Enemy>().Attacking();
+
             takeDamage();
         }
         

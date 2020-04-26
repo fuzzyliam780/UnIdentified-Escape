@@ -435,13 +435,14 @@ public class Weapon : MonoBehaviour
                 Debug.DrawLine(transform.position, hit.point, Color.red, 2); //Draw a black line in the SCENE view between the current weapon position and the position of the point the raycast hit that will last for 2 seconds
             }
 
-            TestEnemy tempEnemy = hit.transform.GetComponent<TestEnemy>();
+            Enemy tempEnemy = hit.transform.GetComponent<Enemy>();
             GameObject ImpactGO;
 
             if (tempEnemy != null)// If an enemy is hit
             {
+
                 ImpactGO = Instantiate(EnemyImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                tempEnemy.takeDamage((Damage + sm.damageBoost)/NumberOfProjectiles);
+                tempEnemy.takeDamage((Damage + sm.damageBoost) / NumberOfProjectiles);
                 uim.updateScore(1);
             }
             else // If something other than an enemy if hit
