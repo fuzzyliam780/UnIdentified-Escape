@@ -440,9 +440,8 @@ public class Weapon : MonoBehaviour
 
             if (tempEnemy != null)// If an enemy is hit
             {
-
                 ImpactGO = Instantiate(EnemyImpactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                tempEnemy.takeDamage((Damage + sm.damageBoost) / NumberOfProjectiles);
+                tempEnemy.takeDamage((Damage + sm.damageBoost)/NumberOfProjectiles);
                 uim.updateScore(1);
             }
             else // If something other than an enemy if hit

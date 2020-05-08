@@ -71,7 +71,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Edge_Width: 0.02
-    - Time: 6.0703616
+    - Time: 0
     - Vector1_1D1E6668: 30
     - Vector1_3D2A1860: 1
     - Vector1_7A157F4C: 30

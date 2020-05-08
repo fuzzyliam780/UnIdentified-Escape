@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,7 +17,6 @@ public class UIManager : MonoBehaviour
     public GameObject roundInfoPanel;
     public GameObject roundResultPanel;
     public GameObject ScorePanel;
-    public GameObject HealthPanel;
     public GameObject AmmoCounterPanel;
     public GameObject crosshair;
 
@@ -29,6 +30,11 @@ public class UIManager : MonoBehaviour
     public Button Skill2Button;
     public Button Skill3Button;
     public Button Skill4Button;
+
+    [Header("Settings Panels")]
+    public GameObject SettingsPanel;
+    public Button volumeButton;
+    public Button exit;
 
     [Header("Text Objects")]
     public Text ammoCounter;
@@ -44,40 +50,50 @@ public class UIManager : MonoBehaviour
     public int HealthPts = 30;
     public bool inspecting = false;
     public bool SkillMenuActive = false;
+    public bool SettingsMenuActive = false;
+    public AudioMixer audioMixer;
+    private bool clicked;
+    public bool inGame = true;
 
     private void Start()
     {
-    //    ammoCounter = GameObject.Find("Ammo Counter Text").GetComponent<Text>();
-    //    roundInfo = GameObject.Find("Round Info Text").GetComponent<Text>();
-    //    score = GameObject.Find("Score Text").GetComponent<Text>();
-    //    health = GameObject.Find("Health Text").GetComponent<Text>();
-    //    roundResult = GameObject.Find("Round Result Text").GetComponent<Text>();
-    //    SkillPointIndicator = GameObject.Find("Skill Points Indicator").GetComponent<Text>();
+        if (inGame)
+        {
+            //    ammoCounter = GameObject.Find("Ammo Counter Text").GetComponent<Text>();
+            //    roundInfo = GameObject.Find("Round Info Text").GetComponent<Text>();
+            //    score = GameObject.Find("Score Text").GetComponent<Text>();
+            //    health = GameObject.Find("Health Text").GetComponent<Text>();
+            //    roundResult = GameObject.Find("Round Result Text").GetComponent<Text>();
+            //    SkillPointIndicator = GameObject.Find("Skill Points Indicator").GetComponent<Text>();
 
-        //crosshair = GameObject.Find("Crosshair");
-        //ScorePanel = GameObject.Find("Score Panel");
-        //HealthPanel = GameObject.Find("Health Panel");
-        //AmmoCounterPanel = GameObject.Find("Ammo Counter Panel");
+            //crosshair = GameObject.Find("Crosshair");
+            //ScorePanel = GameObject.Find("Score Panel");
+            //HealthPanel = GameObject.Find("Health Panel");
+            //AmmoCounterPanel = GameObject.Find("Ammo Counter Panel");
 
 
-        //Panels that should not be shown unless activated need to start activated to be found, 
-        //after which they can be disabled
+            //Panels that should not be shown unless activated need to start activated to be found, 
+            //after which they can be disabled
 
-        //roundInfoPanel = GameObject.Find("Round Info");
-        roundInfoPanel.SetActive(false);
+            //roundInfoPanel = GameObject.Find("Round Info");
+            roundInfoPanel.SetActive(false);
 
-        //roundResultPanel = GameObject.Find("Round Result");
-        roundResultPanel.SetActive(false);
+            //roundResultPanel = GameObject.Find("Round Result");
+            roundResultPanel.SetActive(false);
 
-        //BarrelCycler = GameObject.Find("Barrel Cycler");
-        BarrelCycler.SetActive(false);
+            //BarrelCycler = GameObject.Find("Barrel Cycler");
+            BarrelCycler.SetActive(false);
 
-        //GripCycler = GameObject.Find("Grip Cycler");
-        GripCycler.SetActive(false);
+            //GripCycler = GameObject.Find("Grip Cycler");
+            GripCycler.SetActive(false);
 
-        //SkillsPanel = GameObject.Find("Skills Panel");
-        //SkillsPanel.SetActive(false);
-
+            //SkillsPanel = GameObject.Find("Skills Panel");
+            //SkillsPanel.SetActive(false);
+        }
+        else
+        {
+            toggleMouseLock();
+        }
     }
 
     private void Update()
@@ -92,19 +108,55 @@ public class UIManager : MonoBehaviour
         {
             updateScore(100f);
         }
+
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SettingsPanel.gameObject.SetActive(true);
+            SettingsMenuActive = true;
+
+        }
+
+        if (SettingsMenuActive)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                SettingsPanel.gameObject.SetActive(false);
+                SettingsMenuActive = false;
+            }
+        }
+
+        if (!clicked)
+        {
+            volumeButton.onClick.AddListener(() => PlayAudio());
+        }
+        if (clicked)
+        {
+            volumeButton.onClick.AddListener(() => StopAudio());
+        }
     }
 
-    public static void toggleMouseLock()
+
+
+    public void toggleMouseLock()
     {
-        if (!Cursor.visible)
+        if (inGame)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (!Cursor.visible)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
         else
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -153,6 +205,11 @@ public class UIManager : MonoBehaviour
         health.text = "" + HealthPts;
     }
 
+    public void disableRoundResult()
+    {
+        roundResultPanel.SetActive(false);
+    }
+
     public void updateRoundResult(string result)
     {
         roundResultPanel.SetActive(true);
@@ -180,7 +237,6 @@ public class UIManager : MonoBehaviour
         crosshair.SetActive(!crosshair.activeInHierarchy);
         roundInfoPanel.SetActive(!roundInfoPanel.activeInHierarchy);
         ScorePanel.SetActive(!ScorePanel.activeInHierarchy);
-        HealthPanel.SetActive(!HealthPanel.activeInHierarchy);
         AmmoCounterPanel.SetActive(!AmmoCounterPanel.activeInHierarchy);
     }
 
@@ -209,5 +265,23 @@ public class UIManager : MonoBehaviour
             Destroy(SkillsUI);
         }
         SkillMenuActive = !SkillMenuActive;
+    }
+
+    public void PlayAudio()
+    {
+        audioMixer.SetFloat("volume", 100);
+        clicked = true;
+    }
+
+    public void StopAudio()
+    {
+        audioMixer.SetFloat("volume", 0);
+        clicked = false;
+
+    }
+
+    public void ExitGame()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }

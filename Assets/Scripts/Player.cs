@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Managers")]
     public UIManager uim;
+    public GameManager gm;
     public Animator arms_anim;
 
     public int MaxHealth = 30;
@@ -173,17 +174,20 @@ public class Player : MonoBehaviour
             changingWeapons = true;
         }
 
-        if (Health == MaxHealth && isHealing)
+        if (Health == MaxHealth)
         {
             isHealing = false;
         }
         else
         {
-            if(Time.time >= TimeToNextHeal)
+            if (isHealing)
             {
-                Health++;
-                uim.updateHealth(1);
-                TimeToNextHeal = Time.time + TimeToNextHeal;
+                if (Time.time >= TimeToNextHeal)
+                {
+                    Health++;
+                    uim.updateHealth(1);
+                    TimeToNextHeal = Time.time + HealthRegenInterval;
+                }
             }
         }
 
@@ -303,28 +307,29 @@ public class Player : MonoBehaviour
         //}
     }
 
-    public void takeDamage()
+    public void takeDamage(int delt)
     {
         if (Time.time >= TimeToNextDamage)
         {
-            Health--;
-            if (Health == 0)
+            Health = Health - delt;
+            if (Health <= 0)
             {
                 uim.updateRoundResult("You Died!");
+                gm.ExitToMainMenu();
                 return;
             }
-            uim.updateHealth(-1);
+            uim.updateHealth(-delt);
             TimeToNextDamage = Time.time + DamageInterval;
-            if (Health == MaxHealth - 1)
+            if (Health <= MaxHealth && !isHealing)
             {
-                TimeToStartHealing = Time.time + TimeToStartHealing;
+                TimeToStartHealing = Time.time + HealthRegenInterval;
                 isHealing = true;
             }
         }
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
 
         GameObject go = collision.gameObject;
@@ -332,10 +337,9 @@ public class Player : MonoBehaviour
         if (go.layer == 9)
         {
             go.GetComponent<Enemy>().Attacking();
-
             takeDamage();
         }
         
         
-    }
+    }*/
 }

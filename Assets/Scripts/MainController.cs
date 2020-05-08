@@ -12,6 +12,8 @@ namespace MainController
     [RequireComponent(typeof(AudioSource))]
     public class MainController : MonoBehaviour
     {
+        public UIManager uim;
+
 #pragma warning disable 649
         [Header("Arms")]
         [Tooltip("The transform component that holds the gun camera."), SerializeField]
@@ -74,7 +76,7 @@ namespace MainController
         /// Initializes the FpsController on start.
         private void Start()
         {
-            UIManager.toggleMouseLock();
+            uim.toggleMouseLock();
 
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;

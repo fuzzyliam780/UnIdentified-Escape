@@ -40093,7 +40093,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 2.4666667
-    functionName: death
+    functionName: Dissolve
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
